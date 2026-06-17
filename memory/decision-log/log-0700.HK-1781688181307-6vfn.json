@@ -1,0 +1,16 @@
+{
+  "logId": "log-0700.HK-1781688181307-6vfn",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "0700.HK",
+  "action": "CAUTIOUS_HOLD",
+  "confidence": 0.5,
+  "summary": "[0700.HK] CAUTIOUS_HOLD（模型建议 HOLD -> 风控覆盖 CAUTIOUS_HOLD）",
+  "evidenceJson": "[{\"source\":\"stock_profile\",\"title\":\"股票名称\",\"value\":\"腾讯控股\",\"asOfDate\":\"2026-06\"},{\"source\":\"stock_profile.status\",\"title\":\"股票状态\",\"value\":\"NORMAL\",\"asOfDate\":\"2026-06\"},{\"source\":\"risk_gate\",\"title\":\"存在严重风险\",\"value\":false,\"asOfDate\":\"2026-06\"}]",
+  "risksJson": "[]",
+  "decisionSource": "risk_judge_override",
+  "modelCalled": true,
+  "hardRuleOverride": false,
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-17T09:23:01.307Z"
+}

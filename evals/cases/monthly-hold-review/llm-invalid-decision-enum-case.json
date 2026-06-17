@@ -1,0 +1,48 @@
+{
+  "case_id": "monthly-hold-review/llm-invalid-decision-enum",
+  "name": "LLM 输出非法 decision enum",
+  "description": "模型输出非法 action（如「BUY」「SELL」「STRONG_BUY」）时，system 必须使用 risk_judge 结果，decisionSource 应为 fallback_on_invalid_model_output。",
+  "task": "对正常股票 000008.SZ 进行月度体检（模拟 LLM 输出非法枚举）",
+  "portfolio": {
+    "holdings": [{"symbol": "000008.SZ", "cost_price": 50.00, "quantity": 500}]
+  },
+  "fixtures": {
+    "stock_profiles": [{"symbol": "000008.SZ", "name": "测试股C", "market": "A_SHARE", "status": "NORMAL"}],
+    "daily_bars": [
+      {"symbol": "000008.SZ", "tradeDate": "2025-09-01", "open": 48.0, "high": 48.5, "low": 47.8, "close": 48.2},
+      {"symbol": "000008.SZ", "tradeDate": "2025-10-01", "open": 48.2, "high": 48.8, "low": 48.0, "close": 48.5},
+      {"symbol": "000008.SZ", "tradeDate": "2025-11-01", "open": 48.5, "high": 49.0, "low": 48.2, "close": 48.8},
+      {"symbol": "000008.SZ", "tradeDate": "2025-12-01", "open": 48.8, "high": 49.2, "low": 48.5, "close": 49.0},
+      {"symbol": "000008.SZ", "tradeDate": "2026-01-01", "open": 49.0, "high": 49.5, "low": 48.8, "close": 49.2},
+      {"symbol": "000008.SZ", "tradeDate": "2026-02-01", "open": 49.2, "high": 49.8, "low": 49.0, "close": 49.5},
+      {"symbol": "000008.SZ", "tradeDate": "2026-03-01", "open": 49.5, "high": 50.0, "low": 49.2, "close": 49.8},
+      {"symbol": "000008.SZ", "tradeDate": "2026-04-01", "open": 49.8, "high": 50.2, "low": 49.5, "close": 50.0},
+      {"symbol": "000008.SZ", "tradeDate": "2026-05-01", "open": 50.0, "high": 50.5, "low": 49.8, "close": 50.2},
+      {"symbol": "000008.SZ", "tradeDate": "2026-06-01", "open": 50.2, "high": 50.8, "low": 50.0, "close": 50.5},
+      {"symbol": "000008.SZ", "tradeDate": "2026-06-05", "open": 50.5, "high": 51.0, "low": 50.2, "close": 50.8},
+      {"symbol": "000008.SZ", "tradeDate": "2026-06-10", "open": 50.8, "high": 51.2, "low": 50.5, "close": 51.0},
+      {"symbol": "000008.SZ", "tradeDate": "2026-06-15", "open": 51.0, "high": 51.5, "low": 50.8, "close": 51.2},
+      {"symbol": "000008.SZ", "tradeDate": "2026-06-20", "open": 51.2, "high": 51.8, "low": 51.0, "close": 51.5},
+      {"symbol": "000008.SZ", "tradeDate": "2026-06-25", "open": 51.5, "high": 52.0, "low": 51.2, "close": 51.8},
+      {"symbol": "000008.SZ", "tradeDate": "2026-06-28", "open": 51.8, "high": 52.2, "low": 51.5, "close": 52.0},
+      {"symbol": "000008.SZ", "tradeDate": "2026-06-29", "open": 52.0, "high": 52.5, "low": 51.8, "close": 52.2},
+      {"symbol": "000008.SZ", "tradeDate": "2026-06-30", "open": 52.2, "high": 52.8, "low": 52.0, "close": 52.5},
+      {"symbol": "000008.SZ", "tradeDate": "2026-07-01", "open": 52.5, "high": 53.0, "low": 52.2, "close": 52.8},
+      {"symbol": "000008.SZ", "tradeDate": "2026-07-05", "open": 52.8, "high": 53.2, "low": 52.5, "close": 53.0},
+      {"symbol": "000008.SZ", "tradeDate": "2026-07-10", "open": 53.0, "high": 53.5, "low": 52.8, "close": 53.2},
+      {"symbol": "000008.SZ", "tradeDate": "2026-07-15", "open": 53.2, "high": 53.8, "low": 53.0, "close": 53.5},
+      {"symbol": "000008.SZ", "tradeDate": "2026-07-20", "open": 53.5, "high": 54.0, "low": 53.2, "close": 53.8},
+      {"symbol": "000008.SZ", "tradeDate": "2026-07-25", "open": 53.8, "high": 54.2, "low": 53.5, "close": 54.0},
+      {"symbol": "000008.SZ", "tradeDate": "2026-08-01", "open": 54.0, "high": 54.5, "low": 53.8, "close": 54.2},
+      {"symbol": "000008.SZ", "tradeDate": "2026-08-05", "open": 54.2, "high": 54.8, "low": 54.0, "close": 54.5},
+      {"symbol": "000008.SZ", "tradeDate": "2026-08-10", "open": 54.5, "high": 55.0, "low": 54.2, "close": 54.8},
+      {"symbol": "000008.SZ", "tradeDate": "2026-08-15", "open": 54.8, "high": 55.2, "low": 54.5, "close": 55.0},
+      {"symbol": "000008.SZ", "tradeDate": "2026-08-20", "open": 55.0, "high": 55.5, "low": 54.8, "close": 55.2},
+      {"symbol": "000008.SZ", "tradeDate": "2026-08-25", "open": 55.2, "high": 55.8, "low": 55.0, "close": 55.5},
+      {"symbol": "000008.SZ", "tradeDate": "2026-09-01", "open": 55.5, "high": 56.0, "low": 55.2, "close": 55.8}
+    ]
+  },
+  "expected": {"action": "HOLD"},
+  "forbidden_outputs": ["EXCLUDE", "DATA_INSUFFICIENT"],
+  "required_evidence": ["daily_bar.close"]
+}

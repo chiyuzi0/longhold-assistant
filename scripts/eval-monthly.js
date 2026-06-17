@@ -1,166 +1,88 @@
 #!/usr/bin/env node
 /**
- * LongHold Assistant V0.3 — Eval: monthly-hold-review
+ * LongHold Assistant V0.3.1 — Eval: monthly-hold-review
  * 
- * 通过 HarnessRunner 执行每个 Eval Case，不使用手写流程。
+ * 使用 HarnessRunner 验证 demo 输出。
+ * 单元测试请使用 pnpm eval:monthly:unit。
  * 
- * 模式:
- *   pnpm eval:monthly             — Demo 结果验证
- *   pnpm eval:monthly --fixture   — Fixture 离线验证（通过 HarnessRunner）
+ * 运行: pnpm eval:monthly
  */
 
 const fs = require('fs');
 const path = require('path');
 const { HarnessRunner } = require('../packages/harness/src/runner/harness-runner');
-const { createFixtureTools, DeterministicJudge } = require('./eval-tools');
 
-const REPORT_PATH = path.resolve('data/reports/monthly/monthly_hold_review_2026-06.md');
-const CASES_DIR = path.resolve('evals/cases/monthly-hold-review');
+const AS_OF_DATE = '2026-06';
+const REPORT_PATH = path.resolve(`data/reports/monthly/monthly_hold_review_${AS_OF_DATE}.md`);
 
-// ===== Demo Verification =====
-
-function verifyDemoDecisions(decisions) {
-  const map = {};
-  for (const d of decisions) map[d.symbol] = d;
-
+function verifyDemoDecisions(map) {
   const checks = [
     { name: 'ST 股票 → EXCLUDE', pass: map['000003.SZ']?.action === 'EXCLUDE', detail: map['000003.SZ']?.action || 'N/A' },
     { name: '数据缺失 → DATA_INSUFFICIENT', pass: map['9988.HK']?.action === 'DATA_INSUFFICIENT', detail: map['9988.HK']?.action || 'N/A' },
     { name: '正常持仓 + 足够日K → HOLD', pass: map['000001.SZ']?.action === 'HOLD', detail: map['000001.SZ']?.action || 'N/A' },
-    { name: '日K不足 → CAUTIOUS_HOLD', pass: map['0700.HK']?.action === 'CAUTIOUS_HOLD', detail: map['0700.HK']?.action || 'N/A' },
+    { name: '日K不足(<30) → DATA_INSUFFICIENT', pass: map['0700.HK']?.action === 'DATA_INSUFFICIENT', detail: map['0700.HK']?.action || 'N/A' },
   ];
-
-  // Report check
   const reportClean = (() => {
     if (!fs.existsSync(REPORT_PATH)) return false;
-    const report = fs.readFileSync(REPORT_PATH, 'utf-8');
-    return !/(必涨|保证收益|推荐买入|无风险|保本|抄底|稳赚)/.test(report);
+    return !/(必涨|保证收益|推荐买入|无风险|保本|抄底|稳赚)/.test(fs.readFileSync(REPORT_PATH, 'utf-8'));
   })();
   checks.push({ name: '报告无禁用语', pass: reportClean, detail: reportClean ? '通过' : '包含禁用语' });
-
-  // Evidence check
   const hasEvidence = Object.values(map).every(d => d.evidence && d.evidence.length > 0);
   checks.push({ name: '所有决策有 evidence', pass: hasEvidence, detail: `${Object.keys(map).length} 均有证据链` });
-
   return checks;
 }
 
-// ===== Main =====
-
 async function main() {
-  const useFixture = process.argv.includes('--fixture');
-  console.log('=== LongHold Assistant V0.3 Eval: monthly-hold-review ===\n');
+  console.log('=== LongHold Assistant V0.3.1 Eval: monthly-hold-review ===\n');
+  console.log('模式: HarnessRunner 集成验证\n');
 
-  if (useFixture) {
-    // ---- Fixture 模式：通过 HarnessRunner 执行 ----
-    console.log('模式: Fixture 离线验证（HarnessRunner）\n');
+  // 通过 HarnessRunner 运行
+  const harness = new HarnessRunner();
+  const result = await harness.runMonthlyReview({
+    portfolioCsv: path.resolve('data/samples/portfolio.sample.csv'),
+    klineCsv: path.resolve('data/samples/kline_250d.sample.csv'),
+    asOfDate: AS_OF_DATE,
+  });
 
-    const caseFiles = fs.existsSync(CASES_DIR)
-      ? fs.readdirSync(CASES_DIR).filter(f => f.endsWith('.json'))
-      : [];
-
-    const cases = caseFiles.map(f => JSON.parse(fs.readFileSync(path.resolve(CASES_DIR, f), 'utf-8')));
-    console.log(`  加载 ${cases.length} 个 Eval Case\n`);
-
-    const judge = new DeterministicJudge();
-    let passCount = 0;
-    let totalScore = 0;
-
-    for (const evalCase of cases) {
-      // 创建 fixture-aware registry
-      const fixtureTools = createFixtureTools(evalCase);
-
-      // 创建 HarnessRunner 并注入 fixture tools
-      const harness = new HarnessRunner({
-        budget: { maxModelCalls: 10, maxToolCalls: 50, maxTotalTokens: 80000 },
-      });
-      // 覆盖 tool registry
-      harness.toolRegistry = fixtureTools;
-
-      // 执行
-      const result = await harness.runMonthlyReview({
-        asOfDate: '2026-06',
-      });
-
-      if (!result.ok) {
-        console.log(`  ❌ FAIL ${evalCase.case_id} — ${evalCase.name} (执行错误)`);
-        continue;
-      }
-
-      const decisions = result.data.decisions;
-      const verdict = judge.evaluate(evalCase, decisions);
-      const status = verdict.passed ? '✅ PASS' : '❌ FAIL';
-
-      console.log(`  ${status} ${evalCase.case_id} — ${evalCase.name}`);
-      if (verdict.errors.length > 0) {
-        for (const err of verdict.errors) console.log(`         错误: ${err}`);
-      }
-      if (verdict.passed) passCount++;
-      totalScore += verdict.score;
-    }
-
-    console.log(`\n=== 结果 ===`);
-    console.log(`  通过: ${passCount}/${cases.length}`);
-    const avgScore = cases.length > 0 ? (totalScore / cases.length) * 100 : 0;
-    console.log(`  平均分: ${avgScore.toFixed(1)}%`);
-    console.log(`  整体: ${passCount === cases.length ? '✅ 通过' : '❌ 失败'}`);
-
-  } else {
-    // ---- Demo 模式：读取报告验证 ----
-    console.log('模式: Demo 结果验证\n');
-
-    // 先运行 demo 以确保数据最新
-    console.log('  运行 demo:monthly-review...');
-    await require('./demo-monthly-review');
-
-    // 读报告解析决策
-    const decisions = [];
-    if (fs.existsSync(REPORT_PATH)) {
-      const report = fs.readFileSync(REPORT_PATH, 'utf-8');
-      for (const line of report.split('\n')) {
-        if (line.startsWith('| ') && !line.includes('---')) {
-          const cols = line.split('|').map(c => c.trim());
-          if (cols.length >= 6 && cols[1] && cols[2] && !['股票', '决策', '数量'].includes(cols[1])) {
-            decisions.push({
-              symbol: cols[1],
-              action: cols[2],
-              evidence: cols[5] ? [{ source: 'report', title: 'evidence', value: cols[5] }] : [],
-            });
-          }
-        }
-      }
-    }
-
-    // 也尝试从 decision log 读
-    const logDir = path.resolve('memory/decision-log');
-    if (fs.existsSync(logDir)) {
-      for (const f of fs.readdirSync(logDir).filter(f => f.endsWith('.json'))) {
-        const log = JSON.parse(fs.readFileSync(path.resolve(logDir, f), 'utf-8'));
-        if (!decisions.find(d => d.symbol === log.symbol)) {
-          decisions.push({
-            symbol: log.symbol,
-            action: log.action,
-            evidence: [{ source: 'decision_log', title: 'evidence', value: log.evidenceJson }],
-          });
-        }
-      }
-    }
-
-    console.log(`\n  决策数: ${decisions.length}\n`);
-    for (const d of decisions) {
-      const ev = d.evidence?.[0]?.value?.substring(0, 60) || '';
-      console.log(`  ${d.symbol}: ${d.action} ${ev}`);
-    }
-
-    console.log('\n--- 验证项 ---\n');
-    const checks = verifyDemoDecisions(decisions);
-    for (const c of checks) {
-      console.log(`  ${c.pass ? '✅' : '❌'} ${c.name}: ${c.detail}`);
-    }
-
-    const allPass = checks.every(c => c.pass);
-    console.log(`\n  整体: ${allPass ? '✅ 通过' : `❌ 失败 (${checks.filter(c => !c.pass).length} 项未通过)`}`);
+  if (!result.ok) {
+    console.error('❌ 任务执行失败:', JSON.stringify(result.error, null, 2));
+    process.exit(1);
   }
+
+  // 从结果中提取决策 map
+  const decisions = result.data.decisions || [];
+  const decisionMap = {};
+  for (const d of decisions) decisionMap[d.symbol] = d;
+
+  console.log(`  HarnessRunner 生成 ${Object.keys(decisionMap).length} 个决策\n`);
+  for (const d of decisions) {
+    const evCount = d.evidence ? d.evidence.length : 0;
+    console.log(`  ${d.symbol}: ${d.action} (source: ${d.decisionSource}, evidence: ${evCount})`);
+  }
+
+  console.log('\n--- 验证项 ---\n');
+  const checks = verifyDemoDecisions(decisionMap);
+  for (const c of checks) {
+    console.log(`  ${c.pass ? '✅' : '❌'} ${c.name}: ${c.detail}`);
+  }
+
+  // Trace 与 Budget 统计
+  const ts = result.data.traceStats || {};
+  const bs = result.data.budgetStats || {};
+  console.log(`\n--- Trace & Budget ---`);
+  console.log(`  traceEvents: ${ts.traceEvents || 0}`);
+  console.log(`  toolExecutions: ${ts.toolExecutions || 0}`);
+  console.log(`  toolTraceEvents: ${ts.toolTraceEvents || 0}`);
+  console.log(`  modelCalls: ${ts.modelCalls || 0}`);
+  console.log(`  modelSkips: ${ts.modelSkips || 0}`);
+  console.log(`  budget: ${bs.toolCalls || 0} tools / ${bs.modelCalls || 0} model / ${bs.totalTokens || 0} tokens / ${bs.runtimeMs || 0}ms`);
+
+  const allPass = checks.every(c => c.pass);
+  console.log(`\n  整体: ${allPass ? '✅ 通过' : '❌ 失败'}`);
+  console.log(`  Trace: ${result.tracePath}`);
+  console.log(`  报告: ${REPORT_PATH}`);
+
+  if (!allPass) process.exit(1);
 }
 
 main().catch(console.error);

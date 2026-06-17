@@ -1,0 +1,16 @@
+{
+  "logId": "log-9988.HK-1781688446523-me51",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "9988.HK",
+  "action": "DATA_INSUFFICIENT",
+  "confidence": 0.5,
+  "summary": "[9988.HK] pre_model_gate: 缺少日K线数据",
+  "evidenceJson": "[{\"source\":\"stock_profile.status\",\"title\":\"股票状态\",\"value\":\"NORMAL\"}]",
+  "risksJson": "[]",
+  "decisionSource": "data_insufficient_gate",
+  "modelCalled": false,
+  "hardRuleOverride": true,
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-17T09:27:26.523Z"
+}

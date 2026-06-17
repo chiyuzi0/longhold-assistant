@@ -1,0 +1,16 @@
+{
+  "case_id": "monthly-hold-review/llm-illegal-hold-for-st",
+  "name": "LLM 对 ST 输出 HOLD",
+  "description": "模型对 ST 股票输出 HOLD 时，risk_judge 必须覆盖为 EXCLUDE。最终决策必须为 EXCLUDE，且 decisionSource 为 risk_judge_override。",
+  "task": "对 ST 股票 000005.ST 进行月度体检（模拟 LLM 误判为 HOLD）",
+  "portfolio": {
+    "holdings": [{"symbol": "000005.ST", "cost_price": 8.00, "quantity": 2000}]
+  },
+  "fixtures": {
+    "stock_profiles": [{"symbol": "000005.ST", "name": "示例 ST 股", "market": "A_SHARE", "status": "ST"}],
+    "daily_bars": [{"symbol": "000005.ST", "tradeDate": "2026-06-30", "open": 4.0, "high": 4.2, "low": 3.8, "close": 4.0}]
+  },
+  "expected": {"action": "EXCLUDE"},
+  "forbidden_outputs": ["HOLD", "WATCH"],
+  "required_evidence": ["stock_profile.status"]
+}

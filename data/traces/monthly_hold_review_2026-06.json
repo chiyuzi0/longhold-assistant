@@ -2,231 +2,178 @@
   "traceId": "trace-monthly-2026-06",
   "taskId": "monthly-review",
   "skillId": "monthly-hold-review",
-  "startedAt": "2026-06-17T08:20:36.377Z",
-  "finishedAt": "2026-06-17T08:20:36.400Z",
-  "durationMs": 23,
+  "startedAt": "2026-06-17T09:27:26.713Z",
+  "finishedAt": "2026-06-17T09:27:26.743Z",
+  "durationMs": 30,
   "status": "COMPLETED",
   "events": [
     {
       "type": "task_started",
-      "timestamp": "2026-06-17T08:20:36.377Z",
+      "timestamp": "2026-06-17T09:27:26.713Z",
       "elapsedMs": 0,
-      "gateway": "Mock（无 API key）"
+      "llmMode": "auto",
+      "llmLabel": "Mock (无 API key)"
     },
     {
       "type": "skill_selected",
-      "timestamp": "2026-06-17T08:20:36.377Z",
+      "timestamp": "2026-06-17T09:27:26.713Z",
       "elapsedMs": 0,
       "skillId": "monthly-hold-review"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.378Z",
-      "elapsedMs": 1,
+      "timestamp": "2026-06-17T09:27:26.713Z",
+      "elapsedMs": 0,
       "toolName": "get_portfolio"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.378Z",
-      "elapsedMs": 1,
-      "toolName": "get_portfolio"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.378Z",
+      "timestamp": "2026-06-17T09:27:26.714Z",
       "elapsedMs": 1,
       "toolName": "get_kline_250d"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.385Z",
-      "elapsedMs": 8,
-      "toolName": "get_kline_250d"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.385Z",
-      "elapsedMs": 8,
+      "timestamp": "2026-06-17T09:27:26.724Z",
+      "elapsedMs": 11,
       "toolName": "calculate_250d_performance"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.394Z",
-      "elapsedMs": 17,
+      "timestamp": "2026-06-17T09:27:26.733Z",
+      "elapsedMs": 20,
       "toolName": "check_risk_flags"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.394Z",
-      "elapsedMs": 17,
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "elapsedMs": 21
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "elapsedMs": 21,
       "toolName": "build_evidence_list"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.394Z",
-      "elapsedMs": 17,
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "elapsedMs": 21,
       "toolName": "model_analyze_stock"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "model_analyze_stock"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "elapsedMs": 21,
       "toolName": "risk_judge"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "elapsedMs": 21,
       "toolName": "calculate_250d_performance"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "check_risk_flags"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "build_evidence_list"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "model_analyze_stock"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "model_analyze_stock"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "risk_judge"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "calculate_250d_performance"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "check_risk_flags"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "risk_judge"
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "calculate_250d_performance"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "check_risk_flags"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "build_evidence_list"
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "model_analyze_stock"
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "model_analyze_stock"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "risk_judge"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "calculate_250d_performance"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "check_risk_flags"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "build_evidence_list"
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "model_analyze_stock"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "model_analyze_stock"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "risk_judge"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
-      "toolName": "risk_override_applied"
-    },
-    {
-      "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.395Z",
-      "elapsedMs": 18,
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "elapsedMs": 22,
       "toolName": "generate_monthly_report"
     },
     {
       "type": "tool_call",
-      "timestamp": "2026-06-17T08:20:36.397Z",
-      "elapsedMs": 20,
+      "timestamp": "2026-06-17T09:27:26.737Z",
+      "elapsedMs": 24,
       "toolName": "write_decision_log"
     },
     {
       "type": "task_finished",
-      "timestamp": "2026-06-17T08:20:36.400Z",
-      "elapsedMs": 23,
+      "timestamp": "2026-06-17T09:27:26.743Z",
+      "elapsedMs": 30,
       "ok": true
     }
   ],
@@ -234,238 +181,215 @@
     {
       "callId": "tool-01",
       "toolName": "get_portfolio",
-      "startedAt": "2026-06-17T08:20:36.378Z",
-      "finishedAt": "2026-06-17T08:20:36.378Z",
-      "durationMs": 1
-    },
-    {
-      "callId": "tool-01",
-      "toolName": "get_portfolio",
-      "output": {
-        "count": 5
-      },
-      "finishedAt": "2026-06-17T08:20:36.378Z",
-      "durationMs": 1
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.713Z",
+      "finishedAt": "2026-06-17T09:27:26.713Z",
+      "durationMs": 0
     },
     {
       "callId": "tool-02",
       "toolName": "get_kline_250d",
-      "startedAt": "2026-06-17T08:20:36.378Z",
-      "finishedAt": "2026-06-17T08:20:36.378Z",
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.714Z",
+      "finishedAt": "2026-06-17T09:27:26.714Z",
       "durationMs": 1
-    },
-    {
-      "callId": "tool-02",
-      "toolName": "get_kline_250d",
-      "output": {
-        "symbols": 5
-      },
-      "finishedAt": "2026-06-17T08:20:36.385Z",
-      "durationMs": 8
     },
     {
       "callId": "tool-03-000001.SZ",
       "toolName": "calculate_250d_performance",
-      "finishedAt": "2026-06-17T08:20:36.385Z",
-      "durationMs": 8
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.724Z",
+      "finishedAt": "2026-06-17T09:27:26.724Z",
+      "durationMs": 11
     },
     {
       "callId": "tool-04-000001.SZ",
       "toolName": "check_risk_flags",
-      "finishedAt": "2026-06-17T08:20:36.394Z",
-      "durationMs": 17
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.733Z",
+      "finishedAt": "2026-06-17T09:27:26.733Z",
+      "durationMs": 20
+    },
+    {
+      "symbol": "000001.SZ",
+      "status": "PASS",
+      "details": "kline_count=280 (PASS); close>0 (PASS); no_dup_dates (PASS); freshness=-13d (PASS); zero_vol_streak=0d (PASS)",
+      "type": "data_quality_gate",
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "finishedAt": "2026-06-17T09:27:26.734Z",
+      "durationMs": 21
     },
     {
       "callId": "tool-05-000001.SZ",
       "toolName": "build_evidence_list",
-      "finishedAt": "2026-06-17T08:20:36.394Z",
-      "durationMs": 17
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "finishedAt": "2026-06-17T09:27:26.734Z",
+      "durationMs": 21
     },
     {
       "callId": "tool-06-000001.SZ",
       "toolName": "model_analyze_stock",
-      "finishedAt": "2026-06-17T08:20:36.394Z",
-      "durationMs": 17
-    },
-    {
-      "callId": "tool-06-000001.SZ",
-      "toolName": "model_analyze_stock",
-      "output": {
-        "modelAction": "HOLD",
-        "modelSource": "mock"
-      },
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "finishedAt": "2026-06-17T09:27:26.734Z",
+      "durationMs": 21
     },
     {
       "callId": "tool-07-000001.SZ",
       "toolName": "risk_judge",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "finishedAt": "2026-06-17T09:27:26.734Z",
+      "durationMs": 21
     },
     {
       "callId": "tool-03-000002.SZ",
       "toolName": "calculate_250d_performance",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.734Z",
+      "finishedAt": "2026-06-17T09:27:26.734Z",
+      "durationMs": 21
     },
     {
       "callId": "tool-04-000002.SZ",
       "toolName": "check_risk_flags",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
+    },
+    {
+      "symbol": "000002.SZ",
+      "status": "PASS",
+      "details": "kline_count=280 (PASS); close>0 (PASS); no_dup_dates (PASS); freshness=-13d (PASS); zero_vol_streak=0d (PASS)",
+      "type": "data_quality_gate",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-05-000002.SZ",
       "toolName": "build_evidence_list",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-06-000002.SZ",
       "toolName": "model_analyze_stock",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
-    },
-    {
-      "callId": "tool-06-000002.SZ",
-      "toolName": "model_analyze_stock",
-      "output": {
-        "modelAction": "HOLD",
-        "modelSource": "mock"
-      },
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-07-000002.SZ",
       "toolName": "risk_judge",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-03-000003.SZ",
       "toolName": "calculate_250d_performance",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-04-000003.SZ",
       "toolName": "check_risk_flags",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
-      "callId": "tool-judge-000003.SZ",
-      "toolName": "risk_judge",
-      "output": {
-        "action": "EXCLUDE",
-        "hardRuleApplied": true
-      },
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "symbol": "000003.SZ",
+      "reason": "pre_model_gate: 触发退市/ST 风险",
+      "decisionSource": "hard_rule_gate",
+      "type": "model_skipped",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-03-0700.HK",
       "toolName": "calculate_250d_performance",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-04-0700.HK",
       "toolName": "check_risk_flags",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
-      "callId": "tool-05-0700.HK",
-      "toolName": "build_evidence_list",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "symbol": "0700.HK",
+      "status": "FAIL",
+      "details": "kline_count=12 (FAIL, <30); close>0 (PASS); no_dup_dates (PASS); freshness=-13d (PASS); zero_vol_streak=0d (PASS)",
+      "type": "data_quality_gate",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
-      "callId": "tool-06-0700.HK",
-      "toolName": "model_analyze_stock",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
-    },
-    {
-      "callId": "tool-06-0700.HK",
-      "toolName": "model_analyze_stock",
-      "output": {
-        "modelAction": "HOLD",
-        "modelSource": "mock"
-      },
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
-    },
-    {
-      "callId": "tool-07-0700.HK",
-      "toolName": "risk_judge",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "symbol": "0700.HK",
+      "reason": "data_quality: FAIL",
+      "type": "model_skipped",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-03-9988.HK",
       "toolName": "calculate_250d_performance",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-04-9988.HK",
       "toolName": "check_risk_flags",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
-      "callId": "tool-05-9988.HK",
-      "toolName": "build_evidence_list",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
-    },
-    {
-      "callId": "tool-06-9988.HK",
-      "toolName": "model_analyze_stock",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
-    },
-    {
-      "callId": "tool-06-9988.HK",
-      "toolName": "model_analyze_stock",
-      "output": {
-        "modelAction": "HOLD",
-        "modelSource": "mock"
-      },
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
-    },
-    {
-      "callId": "tool-07-9988.HK",
-      "toolName": "risk_judge",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
-    },
-    {
-      "callId": "trace-override-9988.HK",
-      "toolName": "risk_override_applied",
-      "output": {
-        "from": "HOLD",
-        "to": "DATA_INSUFFICIENT"
-      },
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "symbol": "9988.HK",
+      "reason": "pre_model_gate: 缺少日K线数据",
+      "decisionSource": "data_insufficient_gate",
+      "type": "model_skipped",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-08",
       "toolName": "generate_monthly_report",
-      "finishedAt": "2026-06-17T08:20:36.395Z",
-      "durationMs": 18
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.735Z",
+      "finishedAt": "2026-06-17T09:27:26.735Z",
+      "durationMs": 22
     },
     {
       "callId": "tool-09",
       "toolName": "write_decision_log",
-      "finishedAt": "2026-06-17T08:20:36.397Z",
-      "durationMs": 20
+      "type": "tool_call",
+      "timestamp": "2026-06-17T09:27:26.737Z",
+      "finishedAt": "2026-06-17T09:27:26.737Z",
+      "durationMs": 24
     }
   ],
   "evidenceItems": [
@@ -535,40 +459,14 @@
       "value": "ST"
     },
     {
-      "source": "stock_profile",
-      "title": "股票名称",
-      "value": "腾讯控股",
-      "asOfDate": "2026-06"
+      "source": "data_quality_gate",
+      "title": "数据质量",
+      "value": "FAIL"
     },
     {
       "source": "stock_profile.status",
       "title": "股票状态",
-      "value": "NORMAL",
-      "asOfDate": "2026-06"
-    },
-    {
-      "source": "risk_gate",
-      "title": "存在严重风险",
-      "value": false,
-      "asOfDate": "2026-06"
-    },
-    {
-      "source": "stock_profile",
-      "title": "股票名称",
-      "value": "阿里巴巴",
-      "asOfDate": "2026-06"
-    },
-    {
-      "source": "stock_profile.status",
-      "title": "股票状态",
-      "value": "NORMAL",
-      "asOfDate": "2026-06"
-    },
-    {
-      "source": "risk_gate",
-      "title": "存在严重风险",
-      "value": false,
-      "asOfDate": "2026-06"
+      "value": "NORMAL"
     }
   ],
   "finalDecision": {
@@ -614,23 +512,43 @@
       "250日相对强弱",
       "重大公告或政策变化"
     ],
-    "modelSource": "mock",
+    "decisionSource": "model_agreed",
+    "modelCalled": true,
+    "hardRuleOverride": false,
+    "evidenceIds": [
+      "ev-001",
+      "ev-002",
+      "ev-003",
+      "ev-004",
+      "ev-005"
+    ],
     "modelResult": {
       "action": "HOLD",
       "confidence": 0.7,
-      "reasoning": "[000001.SZ] 未发现重大风险信号。"
+      "reasoning": "[000001.SZ] 未发现重大风险信号。",
+      "modelSource": "mock"
     },
-    "hardRuleApplied": false
+    "finalDecisionAt": "2026-06-17T09:27:26.734Z",
+    "modelSource": "mock"
   },
   "budget": {
-    "toolCalls": 22,
-    "modelCalls": 4,
+    "toolCalls": 20,
+    "modelCalls": 2,
     "promptTokens": 0,
     "completionTokens": 0,
     "totalTokens": 0,
-    "startedAt": 1781684436378,
+    "startedAt": 1781688446713,
     "exceeded": false,
     "exceededReason": null,
-    "runtimeMs": 22
-  }
+    "runtimeMs": 30
+  },
+  "traceStats": {
+    "traceEvents": 20,
+    "toolExecutions": 20,
+    "toolTraceEvents": 40,
+    "modelCalls": 2,
+    "modelSkips": 3
+  },
+  "modelCallCount": 2,
+  "modelSkipCount": 3
 }

@@ -1,0 +1,16 @@
+{
+  "logId": "log-000005.ST-1781688396144-yg94",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "000005.ST",
+  "action": "EXCLUDE",
+  "confidence": 0.95,
+  "summary": "[000005.ST] pre_model_gate: 触发退市/ST 风险",
+  "evidenceJson": "[{\"source\":\"stock_profile.status\",\"title\":\"股票状态\",\"value\":\"ST\"}]",
+  "risksJson": "[]",
+  "decisionSource": "hard_rule_gate",
+  "modelCalled": false,
+  "hardRuleOverride": true,
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-17T09:26:36.144Z"
+}

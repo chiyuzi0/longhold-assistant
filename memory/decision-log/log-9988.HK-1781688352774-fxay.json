@@ -1,0 +1,16 @@
+{
+  "logId": "log-9988.HK-1781688352774-fxay",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "9988.HK",
+  "action": "DATA_INSUFFICIENT",
+  "confidence": 0.5,
+  "summary": "[9988.HK] 数据质量 FAIL (kline_count=0 (FAIL, <30))",
+  "evidenceJson": "[{\"source\":\"data_quality_gate\",\"title\":\"数据质量\",\"value\":\"FAIL\"}]",
+  "risksJson": "[]",
+  "decisionSource": "data_insufficient_gate",
+  "modelCalled": false,
+  "hardRuleOverride": true,
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-17T09:25:52.774Z"
+}

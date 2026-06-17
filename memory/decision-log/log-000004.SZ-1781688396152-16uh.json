@@ -1,0 +1,16 @@
+{
+  "logId": "log-000004.SZ-1781688396152-16uh",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "000004.SZ",
+  "action": "DATA_INSUFFICIENT",
+  "confidence": 0.5,
+  "summary": "[000004.SZ] 数据质量 FAIL (kline_count=34 (WARN, <250); close>0 (PASS); no_dup_dates (PASS); freshness=242d (FAIL); zero_vol_streak=34d (WARN))",
+  "evidenceJson": "[{\"source\":\"data_quality_gate\",\"title\":\"数据质量\",\"value\":\"FAIL\"}]",
+  "risksJson": "[]",
+  "decisionSource": "data_insufficient_gate",
+  "modelCalled": false,
+  "hardRuleOverride": true,
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-17T09:26:36.152Z"
+}

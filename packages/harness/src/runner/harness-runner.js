@@ -1,11 +1,12 @@
-// harness-runner.js — V0.3 任务执行入口
-// 所有任务通过这里调度，不手写业务流程
+// harness-runner.js — V0.3.1 任务执行入口
+// 新增: loadLLMConfig, pre_model_risk_gate trace, traceStats/budgetStats 分离
 
 const { ToolRegistry } = require('../registries/tool-registry');
 const { BudgetPolicy } = require('../budget/budget-policy');
 const { MonthlyHoldReviewRunner } = require('../../../skills/src/monthly-hold-review/skill-runner.cjs');
+const { loadLLMConfig } = require('../llm-config.cjs');
 
-// ===== 简易 Trace Recorder（记录关键事件到 JSON） =====
+// ===== Trace Recorder =====
 class HarnessTraceRecorder {
   constructor(taskId) {
     this.taskId = taskId;
@@ -50,75 +51,51 @@ class HarnessTraceRecorder {
       finalDecision: this.finalDecision || null,
     };
   }
-}
 
-// ===== Gateway 检测 =====
-function createGateway() {
-  const envPath = require('path').resolve('.env');
-  const fs = require('fs');
-  if (fs.existsSync(envPath)) {
-    for (const line of fs.readFileSync(envPath, 'utf-8').split('\n')) {
-      const t = line.trim();
-      if (t && !t.startsWith('#')) {
-        const eq = t.indexOf('=');
-        if (eq > 0) {
-          const k = t.slice(0, eq).trim(), v = t.slice(eq + 1).trim();
-          if (!process.env[k]) process.env[k] = v;
-        }
-      }
-    }
+  getEventsByType(type) {
+    return this.events.filter(e => e.type === type);
   }
-  const baseUrl = process.env.LONGHOLD_LLM_BASE_URL;
-  const apiKey = process.env.LONGHOLD_LLM_API_KEY;
-  const hasDeepSeek = !!(baseUrl && apiKey);
-  return {
-    hasDeepSeek,
-    config: hasDeepSeek ? {
-      baseUrl, apiKey,
-      model: process.env.LONGHOLD_LLM_MODEL || 'deepseek-chat',
-    } : null,
-    label: hasDeepSeek ? `DeepSeek @ ${baseUrl}` : 'Mock（无 API key）',
-  };
 }
 
 // ===================================================================
-// HarnessRunner — 统一任务入口
+// HarnessRunner
 // ===================================================================
 
 class HarnessRunner {
   constructor(config = {}) {
     this.toolRegistry = new ToolRegistry();
     this.budget = new BudgetPolicy(config.budget);
-    this.gateway = createGateway();
+    this.llmConfig = loadLLMConfig();
     this.fs = require('fs');
     this.path = require('path');
   }
 
   getGatewayLabel() {
-    return this.gateway.label;
+    return this.llmConfig.label;
   }
 
-  /**
-   * 运行月度持仓体检任务。
-   * 这是唯一的任务入口。
-   */
   async runMonthlyReview(overrides = {}) {
     const trace = new HarnessTraceRecorder('monthly-review');
-    trace.recordEvent('task_started', { gateway: this.gateway.label });
+    trace.recordEvent('task_started', { llmMode: this.llmConfig.mode, llmLabel: this.llmConfig.label });
+    if (this.llmConfig.error) {
+      trace.recordEvent('config_warning', { message: this.llmConfig.error });
+    }
 
-    // 构建 Skill Runner
+    // 构建 gateway 对象（向后兼容 tool-registry 的 model_analyze_stock）
+    const gateway = this.llmConfig.hasDeepSeek
+      ? { hasDeepSeek: true, config: this.llmConfig.config, llmStrategy: this.llmConfig.strategy }
+      : { hasDeepSeek: false, config: null, llmStrategy: this.llmConfig.strategy };
+
     const skill = new MonthlyHoldReviewRunner({
       toolRegistry: this.toolRegistry,
       budget: this.budget,
       trace,
-      gateway: this.gateway,
+      gateway,
     });
 
-    // 执行
     trace.recordEvent('skill_selected', { skillId: 'monthly-hold-review' });
     const result = await skill.run(overrides);
 
-    // 记录 trace
     if (result.ok && result.data) {
       trace.setFinalDecision(result.data.decisions[0] || null);
       if (result.data.decisions) {
@@ -128,23 +105,44 @@ class HarnessRunner {
       }
     }
     trace.recordEvent('task_finished', { ok: result.ok });
+
     const traceObj = trace.toJSON();
-    // 补充预算数据
+    // Budget stats（SkillRunner 统计的工具执行次数）
     if (result.ok && result.data?.budgetStats) {
       traceObj.budget = result.data.budgetStats;
     }
+    if (result.ok && result.data?.traceStats) {
+      traceObj.traceStats = result.data.traceStats;
+      traceObj.modelCallCount = result.data.traceStats.modelCalls;
+      traceObj.modelSkipCount = result.data.traceStats.modelSkips;
+    }
+    if (result.ok && result.data?.budgetExceeded) {
+      traceObj.budgetExceeded = true;
+      traceObj.budgetExceededReason = result.data.budgetExceededReason;
+    }
 
-    // 写入 trace 文件
+    // 写入 trace
     const traceDir = this.path.resolve('data/traces');
     this.fs.mkdirSync(traceDir, { recursive: true });
     const tracePath = this.path.resolve(traceDir, `monthly_hold_review_${overrides.asOfDate || new Date().toISOString().slice(0, 7)}.json`);
     this.fs.writeFileSync(tracePath, JSON.stringify(traceObj, null, 2), 'utf-8');
 
+    const stats = result.ok && result.data?.traceStats ? {
+      modelCalls: result.data.traceStats.modelCalls,
+      modelSkips: result.data.traceStats.modelSkips,
+      toolExecutions: result.data.traceStats.toolExecutions,
+      traceEvents: result.data.traceStats.traceEvents,
+      toolTraceEvents: result.data.traceStats.toolTraceEvents,
+      budgetExceeded: result.data.budgetExceeded,
+    } : {};
+
     return {
       ...result,
       tracePath,
       trace: traceObj,
-      gateway: this.gateway.label,
+      gateway: this.llmConfig.label,
+      llmMode: this.llmConfig.mode,
+      stats,
     };
   }
 }

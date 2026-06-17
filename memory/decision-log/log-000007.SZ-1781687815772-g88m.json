@@ -1,0 +1,16 @@
+{
+  "logId": "log-000007.SZ-1781687815772-g88m",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "000007.SZ",
+  "action": "HOLD",
+  "confidence": 0.7,
+  "summary": "[000007.SZ] [000007.SZ] 未发现重大风险信号。",
+  "evidenceJson": "[{\"source\":\"stock_profile\",\"title\":\"股票名称\",\"value\":\"000007.SZ\",\"asOfDate\":\"2026-06\"},{\"source\":\"stock_profile.status\",\"title\":\"股票状态\",\"value\":\"NORMAL\",\"asOfDate\":\"2026-06\"},{\"source\":\"market_performance\",\"title\":\"250日收益率(%)\",\"value\":53.52,\"asOfDate\":\"2026-06\"},{\"source\":\"market_performance\",\"title\":\"250日最大回撤(%)\",\"value\":0,\"asOfDate\":\"2026-06\"},{\"source\":\"risk_gate\",\"title\":\"存在严重风险\",\"value\":false,\"asOfDate\":\"2026-06\"}]",
+  "risksJson": "[]",
+  "decisionSource": "model_agreed",
+  "modelCalled": true,
+  "hardRuleOverride": false,
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-17T09:16:55.772Z"
+}

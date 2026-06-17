@@ -1,0 +1,19 @@
+{
+  "case_id": "monthly-hold-review/data-quality-fail",
+  "name": "数据质量 FAIL 拦截",
+  "description": "日K数据不足 30 条时，data_quality_gate 判定 FAIL，跳过模型调用，输出 DATA_INSUFFICIENT。",
+  "task": "对数据质量 FAIL 的股票 000009.SZ 进行月度体检",
+  "portfolio": {
+    "holdings": [{"symbol": "000009.SZ", "cost_price": 10.00, "quantity": 1000}]
+  },
+  "fixtures": {
+    "stock_profiles": [{"symbol": "000009.SZ", "name": "数据不全股", "market": "A_SHARE", "status": "NORMAL"}],
+    "daily_bars": [
+      {"symbol": "000009.SZ", "tradeDate": "2026-06-01", "open": 10.0, "high": 10.5, "low": 9.8, "close": 10.2},
+      {"symbol": "000009.SZ", "tradeDate": "2026-06-02", "open": 10.2, "high": 10.3, "low": 10.0, "close": 10.1}
+    ]
+  },
+  "expected": {"action": "DATA_INSUFFICIENT"},
+  "forbidden_outputs": ["HOLD", "EXCLUDE"],
+  "required_evidence": ["data_quality_gate"]
+}

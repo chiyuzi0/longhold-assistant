@@ -1,0 +1,47 @@
+{
+  "case_id": "monthly-hold-review/llm-missing-evidence",
+  "name": "LLM 缺失 evidence_id",
+  "description": "模型输出缺少 evidence 引用时，系统仍应使用 risk_judge 覆盖。最终决策必须包含 evidence 和 evidenceIds，decisionSource 不为 fallback。",
+  "task": "对正常股票 000006.SZ 进行月度体检（模拟 LLM 输出不带 evidence）",
+  "portfolio": {
+    "holdings": [{"symbol": "000006.SZ", "cost_price": 30.00, "quantity": 1000}]
+  },
+  "fixtures": {
+    "stock_profiles": [{"symbol": "000006.SZ", "name": "测试股", "market": "A_SHARE", "status": "NORMAL"}],
+    "daily_bars": [
+      {"symbol": "000006.SZ", "tradeDate": "2025-06-01", "open": 28.0, "high": 28.5, "low": 27.8, "close": 28.2},
+      {"symbol": "000006.SZ", "tradeDate": "2025-07-01", "open": 28.2, "high": 28.8, "low": 28.0, "close": 28.5},
+      {"symbol": "000006.SZ", "tradeDate": "2025-08-01", "open": 28.5, "high": 29.0, "low": 28.2, "close": 28.8},
+      {"symbol": "000006.SZ", "tradeDate": "2025-09-01", "open": 28.8, "high": 29.5, "low": 28.5, "close": 29.2},
+      {"symbol": "000006.SZ", "tradeDate": "2026-01-02", "open": 30.0, "high": 30.5, "low": 29.8, "close": 30.2},
+      {"symbol": "000006.SZ", "tradeDate": "2026-03-02", "open": 30.2, "high": 30.8, "low": 30.0, "close": 30.5},
+      {"symbol": "000006.SZ", "tradeDate": "2026-05-02", "open": 30.5, "high": 31.0, "low": 30.2, "close": 30.8},
+      {"symbol": "000006.SZ", "tradeDate": "2026-06-01", "open": 30.8, "high": 31.5, "low": 30.5, "close": 31.2},
+      {"symbol": "000006.SZ", "tradeDate": "2026-06-10", "open": 31.2, "high": 31.8, "low": 31.0, "close": 31.5},
+      {"symbol": "000006.SZ", "tradeDate": "2026-06-20", "open": 31.5, "high": 32.0, "low": 31.2, "close": 31.8},
+      {"symbol": "000006.SZ", "tradeDate": "2026-06-25", "open": 31.8, "high": 32.2, "low": 31.5, "close": 32.0},
+      {"symbol": "000006.SZ", "tradeDate": "2026-06-29", "open": 32.0, "high": 32.5, "low": 31.8, "close": 32.2},
+      {"symbol": "000006.SZ", "tradeDate": "2026-06-30", "open": 32.2, "high": 32.8, "low": 32.0, "close": 32.5},
+    {"symbol": "000006.SZ", "tradeDate": "2026-07-01", "open": 32.5, "high": 33.0, "low": 32.2, "close": 32.8},
+    {"symbol": "000006.SZ", "tradeDate": "2026-07-05", "open": 32.8, "high": 33.2, "low": 32.5, "close": 33.0},
+    {"symbol": "000006.SZ", "tradeDate": "2026-07-10", "open": 33.0, "high": 33.5, "low": 32.8, "close": 33.2},
+    {"symbol": "000006.SZ", "tradeDate": "2026-07-15", "open": 33.2, "high": 33.8, "low": 33.0, "close": 33.5},
+    {"symbol": "000006.SZ", "tradeDate": "2026-07-20", "open": 33.5, "high": 34.0, "low": 33.2, "close": 33.8},
+    {"symbol": "000006.SZ", "tradeDate": "2026-07-25", "open": 33.8, "high": 34.2, "low": 33.5, "close": 34.0},
+    {"symbol": "000006.SZ", "tradeDate": "2026-08-01", "open": 34.0, "high": 34.5, "low": 33.8, "close": 34.2},
+    {"symbol": "000006.SZ", "tradeDate": "2026-08-05", "open": 34.2, "high": 34.8, "low": 34.0, "close": 34.5},
+    {"symbol": "000006.SZ", "tradeDate": "2026-08-10", "open": 34.5, "high": 35.0, "low": 34.2, "close": 34.8},
+    {"symbol": "000006.SZ", "tradeDate": "2026-08-15", "open": 34.8, "high": 35.2, "low": 34.5, "close": 35.0},
+    {"symbol": "000006.SZ", "tradeDate": "2026-08-20", "open": 35.0, "high": 35.5, "low": 34.8, "close": 35.2},
+    {"symbol": "000006.SZ", "tradeDate": "2026-08-25", "open": 35.2, "high": 35.8, "low": 35.0, "close": 35.5},
+    {"symbol": "000006.SZ", "tradeDate": "2026-09-01", "open": 35.5, "high": 36.0, "low": 35.2, "close": 35.8},
+    {"symbol": "000006.SZ", "tradeDate": "2026-09-05", "open": 35.8, "high": 36.2, "low": 35.5, "close": 36.0},
+    {"symbol": "000006.SZ", "tradeDate": "2026-09-10", "open": 36.0, "high": 36.5, "low": 35.8, "close": 36.2},
+    {"symbol": "000006.SZ", "tradeDate": "2026-09-15", "open": 36.2, "high": 36.8, "low": 36.0, "close": 36.5},
+    {"symbol": "000006.SZ", "tradeDate": "2026-09-20", "open": 36.5, "high": 37.0, "low": 36.2, "close": 36.8}
+    ]
+  },
+  "expected": {"action": "HOLD"},
+  "forbidden_outputs": ["EXCLUDE", "DATA_INSUFFICIENT"],
+  "required_evidence": ["daily_bar.close", "market_performance"]
+}

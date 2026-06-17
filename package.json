@@ -10,6 +10,9 @@
     "data:init": "tsx scripts/init_data_dirs.ts",
     "demo:monthly-review": "node scripts/demo-monthly-review.js",
     "eval:monthly": "node scripts/eval-monthly.js",
+    "eval:monthly:unit": "node scripts/eval-monthly-unit.js",
+    "init:db": "node -e \"const {DuckDBClient}=require('./packages/data/src/duckdb-client.cjs');(new DuckDBClient()).init().then(r=>console.log(r.ok?'OK:'+r.note||'duckdb':'FAIL:'+r.error))\"",
+    "fetch:sample-data": "node scripts/fetch-sample-market-data.js",
     "test": "vitest run",
     "lint": "echo \"TODO: add eslint\"",
     "typecheck": "tsc -p tsconfig.base.json --noEmit"

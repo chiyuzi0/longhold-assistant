@@ -33,7 +33,8 @@ async function main() {
     },
   });
 
-  console.log(`模型: ${harness.getGatewayLabel()}\n`);
+  console.log(`模型: ${harness.getGatewayLabel()}`);
+  console.log(`LLM 模式: ${harness.llmConfig.mode}\n`);
 
   // ---- 2. 调用任务 ----
   const result = await harness.runMonthlyReview({
@@ -59,7 +60,9 @@ async function main() {
   console.log(`\n  模型来源: ${result.gateway}`);
 
   const bs = data.budgetStats;
-  console.log(`  Budget: ${bs.toolCalls} tools / ${bs.modelCalls} models / ${bs.totalTokens} tokens / ${bs.runtimeMs}ms`);
+  const ts = data.traceStats || {};
+  console.log(`  Budget: toolExecs=${bs.toolCalls} / modelCalls=${bs.modelCalls} / modelSkips=${ts.modelSkips || 0} / tokens=${bs.totalTokens} / runtime=${bs.runtimeMs}ms`);
+  console.log(`  Trace: events=${ts.traceEvents || 0} / tools=${ts.toolExecutions || 0} / traceTools=${ts.toolTraceEvents || 0}`);
   console.log(`  报告: ${data.reportPath}`);
   console.log(`  决策日志: ${data.logIds.length} 条`);
   console.log(`  Trace: ${result.tracePath}`);
