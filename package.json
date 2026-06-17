@@ -1,0 +1,23 @@
+{
+  "name": "longhold-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A/H 股长线持仓研究助手",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev:desktop": "pnpm --filter @longhold/desktop dev",
+    "build:desktop": "pnpm --filter @longhold/desktop build",
+    "data:init": "tsx scripts/init_data_dirs.ts",
+    "demo:monthly-review": "node scripts/demo-monthly-review.js",
+    "eval:monthly": "node scripts/eval-monthly.js",
+    "test": "vitest run",
+    "lint": "echo \"TODO: add eslint\"",
+    "typecheck": "tsc -p tsconfig.base.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

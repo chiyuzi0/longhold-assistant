@@ -1,0 +1,143 @@
+# Bash Execution Layer Configuration
+# 受控 Shell 命令白名单
+
+bash:
+  # 默认超时
+  default_timeout_ms: 120000
+  # 写入命令是否需要用户确认
+  require_confirmation_for_write: true
+  # 是否默认 dry-run（只打印不执行）
+  dry_run_by_default: true
+
+  # 允许的命令列表
+  allowed_commands:
+    # ---- 包管理 ----
+    - pattern: "pnpm install"
+      working_dir: "."
+      timeout_ms: 300000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    - pattern: "pnpm test"
+      working_dir: "."
+      timeout_ms: 120000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    - pattern: "pnpm lint"
+      working_dir: "."
+      timeout_ms: 60000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    - pattern: "pnpm typecheck"
+      working_dir: "."
+      timeout_ms: 60000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    - pattern: "pnpm build"
+      working_dir: "."
+      timeout_ms: 300000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    - pattern: "pnpm tauri dev"
+      working_dir: "."
+      timeout_ms: 0          # 不超时（后台运行）
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    # ---- Git 操作 ----
+    - pattern: "git status"
+      working_dir: "."
+      timeout_ms: 10000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    - pattern: "git diff"
+      working_dir: "."
+      timeout_ms: 30000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    - pattern: "git log"
+      working_dir: "."
+      timeout_ms: 10000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    # ---- 数据采集 ----
+    - pattern: "python scripts/fetch_a_share.py"
+      working_dir: "."
+      timeout_ms: 600000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    - pattern: "python scripts/fetch_hk.py"
+      working_dir: "."
+      timeout_ms: 600000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    # ---- 数据库（只允许固定模板，禁止开放式交互） ----
+    - pattern: "duckdb data/duckdb/longhold.duckdb < scripts/init_duckdb.sql"
+      working_dir: "."
+      timeout_ms: 30000
+      require_confirmation: false
+      dry_run_by_default: false
+      capture_stdout: true
+      capture_stderr: true
+
+    - pattern: "duckdb data/duckdb/longhold.duckdb -c "
+      working_dir: "."
+      timeout_ms: 30000
+      require_confirmation: false
+      dry_run_by_default: true
+      capture_stdout: true
+      capture_stderr: true
+
+  # 禁止的命令模式
+  blocked_patterns:
+    - "rm -rf"
+    - "rm -r"
+    - "rm --recursive"
+    - "git push --force"
+    - "git push -f"
+    - "curl * | bash"
+    - "curl * | sh"
+    - "wget * | bash"
+    - "wget * | sh"
+    - "del /s"
+    - "del /f /s"
+    - "format "
+    - "shutdown"
+    - "reboot"
+    - "powershell -enc"
+    - "powershell -EncodedCommand"
+    - "> /dev/sd"
+    - "chmod 777"
+    - "eval "
+    - "$("

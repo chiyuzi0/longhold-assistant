@@ -1,0 +1,55 @@
+# Tools Configuration
+# Internal Tool 注册列表
+
+tools:
+  # ---- Market 工具 ----
+  - name: computeMarketPerformance250d
+    category: market
+    is_idempotent: true
+    max_retries: 1
+    timeout_ms: 5000
+    required_permissions: []
+    test_path: "tests/tools/marketPerformance.test.ts"
+
+  # ---- Financial 工具 ----
+  # TODO: 待实现
+  # - name: calculateROE
+  #   category: financial
+  # - name: calculateCashflowQuality
+  #   category: financial
+  # - name: calculateDebtRatio
+  #   category: financial
+
+  # ---- Valuation 工具 ----
+  # TODO: 待实现
+  # - name: calculatePE
+  #   category: valuation
+  # - name: calculatePB
+  #   category: valuation
+  # - name: getValuationPercentile
+  #   category: valuation
+
+  # ---- Risk 工具 ----
+  - name: screenBasicDelistingRisk
+    category: risk
+    is_idempotent: true
+    max_retries: 0
+    timeout_ms: 1000
+    required_permissions: []
+    test_path: "tests/core/riskRules.test.ts"
+
+  # ---- Report 工具 ----
+  - name: generateMonthlyReviewMarkdown
+    category: report
+    is_idempotent: true
+    max_retries: 0
+    timeout_ms: 5000
+    required_permissions: []
+    test_path: "tests/report/monthlyTemplate.test.ts"
+
+  # ---- Memory 工具 ----
+  # TODO: 待实现
+  # - name: readPortfolioMemory
+  #   category: memory
+  # - name: writeDecisionLog
+  #   category: memory

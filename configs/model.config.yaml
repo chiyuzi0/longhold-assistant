@@ -1,0 +1,33 @@
+# Model Configuration
+# LLM / Model Gateway 配置
+
+model:
+  provider: "deepseek"
+  default_model: "deepseek-v4-pro"
+  fallback_model: "deepseek-v4-flash"
+
+  # 模型列表
+  models:
+    - name: deepseek-v4-pro
+      max_tokens: 8192
+      default_temperature: 0.2
+
+    - name: deepseek-v4-flash
+      max_tokens: 4096
+      default_temperature: 0.1
+
+  # Model Gateway 设置
+  gateway:
+    base_url: "${LONGHOLD_LLM_BASE_URL}"
+    api_key: "${LONGHOLD_LLM_API_KEY}"
+    timeout_ms: 60000
+    max_retries: 2
+    retry_delay_ms: 1000
+
+  # Agent 约束
+  agent:
+    require_evidence: true
+    forbid_data_fabrication: true
+    output_language: "zh-CN"
+    system_prompt_path: "prompts/agent_system.md"
+    risk_officer_prompt_path: "prompts/risk_officer.md"

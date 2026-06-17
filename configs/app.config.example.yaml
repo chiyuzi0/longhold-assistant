@@ -1,0 +1,25 @@
+app:
+  name: LongHold Assistant
+  locale: zh-CN
+  default_market: A_SHARE
+
+data:
+  duckdb_path: data/longhold.duckdb
+  raw_dir: data/raw
+  parquet_dir: data/parquet
+  report_dir: data/reports
+
+analysis:
+  market_performance_window_days: 250
+  min_listing_years: 2
+  enable_hk_market: true
+
+risk:
+  exclude_st: true
+  exclude_delisting_risk: true
+  exclude_non_standard_audit: true
+  min_avg_daily_amount: 10000000
+
+memory:
+  path: data/memory
+  require_user_confirmation_for_thesis_update: true

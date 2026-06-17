@@ -1,0 +1,28 @@
+default_weights:
+  quality: 0.30
+  growth: 0.20
+  valuation: 0.15
+  stability: 0.15
+  shareholder_return: 0.10
+  momentum: 0.10
+
+profiles:
+  dividend:
+    quality: 0.25
+    valuation: 0.20
+    stability: 0.20
+    shareholder_return: 0.25
+    momentum: 0.10
+  growth_manufacturing:
+    growth: 0.30
+    quality: 0.25
+    stability: 0.15
+    valuation: 0.15
+    momentum: 0.15
+  hk_value:
+    valuation: 0.25
+    quality: 0.20
+    liquidity: 0.20
+    shareholder_return: 0.15
+    policy_risk: 0.10
+    momentum: 0.10

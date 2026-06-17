@@ -1,0 +1,13 @@
+{
+  "logId": "log-000003.SZ-1781684436398-k3hu",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "000003.SZ",
+  "action": "EXCLUDE",
+  "confidence": 0.95,
+  "summary": "[000003.SZ] 硬规则触发: EXCLUDE",
+  "evidenceJson": "[{\"source\":\"stock_profile.status\",\"title\":\"股票状态\",\"value\":\"ST\"}]",
+  "risksJson": "[]",
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-17T08:20:36.398Z"
+}

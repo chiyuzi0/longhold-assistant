@@ -1,0 +1,10 @@
+{
+  "name": "@longhold/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP Layer — 外部能力适配（不承载业务逻辑）",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@longhold/core": "workspace:*"
+  }
+}

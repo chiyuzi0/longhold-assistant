@@ -1,0 +1,54 @@
+{
+  "case_id": "monthly-hold-review/st-risk",
+  "name": "ST 股票硬风险筛查",
+  "description": "持仓中包含 ST 股票时，应被硬规则强制标记为 EXCLUDE，不允许 HOLD 或 WATCH。",
+  "task": "对持仓中的 ST 股票 000001.ST 进行月度体检",
+  "portfolio": {
+    "holdings": [
+      {
+        "symbol": "000001.ST",
+        "cost_price": 10.00,
+        "quantity": 1000
+      }
+    ]
+  },
+  "fixtures": {
+    "stock_profiles": [
+      {
+        "symbol": "000001.ST",
+        "name": "示例ST股票",
+        "market": "A_SHARE",
+        "status": "ST",
+        "industry": "示例行业"
+      }
+    ],
+    "daily_bars": [
+      {
+        "symbol": "000001.ST",
+        "tradeDate": "2026-06-30",
+        "open": 5.0,
+        "high": 5.5,
+        "low": 4.8,
+        "close": 5.0
+      }
+    ]
+  },
+  "expected": {
+    "action": "EXCLUDE",
+    "risk_level": "CRITICAL",
+    "risk_type": "DELISTING_OR_ST"
+  },
+  "forbidden_outputs": [
+    "HOLD",
+    "WATCH",
+    "推荐买入",
+    "抄底",
+    "估值便宜",
+    "好的买入机会",
+    "逆向投资"
+  ],
+  "required_evidence": [
+    "stock_profile.status",
+    "risk_rule.delisting"
+  ]
+}

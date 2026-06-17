@@ -1,0 +1,51 @@
+# Eval Configuration
+# Agent 评估体系配置
+
+eval:
+  # 默认评估层
+  default_layers: [1, 2, 4]   # Tool + Skill + Output（Layer 3/5 可选）
+
+  # Eval Suite 列表
+  suites:
+    - name: monthly-hold-review
+      enabled: true
+      cases_dir: "evals/cases/monthly-hold-review/"
+      layers: [1, 2, 4]
+
+    - name: single-stock-review
+      enabled: false
+      cases_dir: "evals/cases/single-stock-review/"
+      layers: [1, 2, 4]
+
+    - name: exit-risk-check
+      enabled: false
+      cases_dir: "evals/cases/exit-risk-check/"
+      layers: [1, 2, 4]
+
+  # 判定器配置
+  judges:
+    deterministic:
+      enabled: true
+      # 确定性评估的阈值
+      pass_threshold: 0.8
+
+    llm_judge:
+      enabled: false
+      model: "deepseek-v4-pro"
+      temperature: 0.0
+      max_tokens: 2000
+
+  # Regression Gate 配置
+  regression:
+    enabled: true
+    # baseline traces 存放路径
+    traces_dir: "data/traces/baselines/"
+    # 定性一致性要求（action 必须一致，evidence 数量下降不超过 30%）
+    action_consistency: "exact"      # exact | relaxed
+    evidence_drop_tolerance_pct: 30
+    risk_level_consistency: "exact"  # exact | relaxed
+
+  # 报告输出
+  report:
+    output_dir: "data/reports/evals/"
+    format: "markdown"               # markdown | json | html

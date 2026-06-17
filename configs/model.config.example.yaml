@@ -1,0 +1,13 @@
+llm:
+  enabled: false
+  provider: openai-compatible
+  base_url: ${LONGHOLD_LLM_BASE_URL}
+  api_key: ${LONGHOLD_LLM_API_KEY}
+  model: ${LONGHOLD_LLM_MODEL}
+  temperature: 0.2
+  max_tokens: 4000
+
+agent:
+  require_evidence: true
+  forbid_data_fabrication: true
+  output_language: zh-CN

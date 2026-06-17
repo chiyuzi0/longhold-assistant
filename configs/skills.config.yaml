@@ -1,0 +1,34 @@
+# Skills Configuration
+# Skill 注册列表
+
+skills:
+  - name: monthly-hold-review
+    enabled: true
+    version: "0.1.0"
+    definition_path: "packages/skills/skills/monthly-hold-review/monthly-hold-review.skill.yaml"
+    module_path: "packages/skills/skills/monthly-hold-review/monthly-hold-review.skill.ts"
+    default_skill: true  # 默认 Skill（未指定时使用）
+
+  - name: single-stock-review
+    enabled: false
+    version: "0.1.0"
+    definition_path: "packages/skills/skills/single-stock-review/single-stock-review.skill.yaml"
+    module_path: ""
+
+  - name: exit-risk-check
+    enabled: false
+    version: "0.1.0"
+    definition_path: "packages/skills/skills/exit-risk-check/exit-risk-check.skill.yaml"
+    module_path: ""
+
+  - name: quarterly-financial-review
+    enabled: false
+    version: "0.1.0"
+    definition_path: "packages/skills/skills/quarterly-financial-review/quarterly-financial-review.skill.yaml"
+    module_path: ""
+
+  - name: annual-stock-pool-rebuild
+    enabled: false
+    version: "0.1.0"
+    definition_path: "packages/skills/skills/annual-stock-pool-rebuild/annual-stock-pool-rebuild.skill.yaml"
+    module_path: ""

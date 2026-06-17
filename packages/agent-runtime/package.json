@@ -1,0 +1,11 @@
+{
+  "name": "@longhold/agent-runtime",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent Runtime / Control Plane — 受控状态机式 Agent 执行引擎",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@longhold/core": "workspace:*",
+    "@longhold/skills": "workspace:*"
+  }
+}

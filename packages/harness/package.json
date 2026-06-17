@@ -1,0 +1,13 @@
+{
+  "name": "@longhold/harness",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Harness — Agent 约束与控制层（Registry/Permission/Budget/Replay/Bash）",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@longhold/agent-runtime": "workspace:*",
+    "@longhold/core": "workspace:*",
+    "@longhold/tools": "workspace:*",
+    "@longhold/skills": "workspace:*"
+  }
+}

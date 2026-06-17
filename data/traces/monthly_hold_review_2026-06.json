@@ -1,0 +1,636 @@
+{
+  "traceId": "trace-monthly-2026-06",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "startedAt": "2026-06-17T08:20:36.377Z",
+  "finishedAt": "2026-06-17T08:20:36.400Z",
+  "durationMs": 23,
+  "status": "COMPLETED",
+  "events": [
+    {
+      "type": "task_started",
+      "timestamp": "2026-06-17T08:20:36.377Z",
+      "elapsedMs": 0,
+      "gateway": "Mock（无 API key）"
+    },
+    {
+      "type": "skill_selected",
+      "timestamp": "2026-06-17T08:20:36.377Z",
+      "elapsedMs": 0,
+      "skillId": "monthly-hold-review"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.378Z",
+      "elapsedMs": 1,
+      "toolName": "get_portfolio"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.378Z",
+      "elapsedMs": 1,
+      "toolName": "get_portfolio"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.378Z",
+      "elapsedMs": 1,
+      "toolName": "get_kline_250d"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.385Z",
+      "elapsedMs": 8,
+      "toolName": "get_kline_250d"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.385Z",
+      "elapsedMs": 8,
+      "toolName": "calculate_250d_performance"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.394Z",
+      "elapsedMs": 17,
+      "toolName": "check_risk_flags"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.394Z",
+      "elapsedMs": 17,
+      "toolName": "build_evidence_list"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.394Z",
+      "elapsedMs": 17,
+      "toolName": "model_analyze_stock"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "model_analyze_stock"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "risk_judge"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "calculate_250d_performance"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "check_risk_flags"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "build_evidence_list"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "model_analyze_stock"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "model_analyze_stock"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "risk_judge"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "calculate_250d_performance"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "check_risk_flags"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "risk_judge"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "calculate_250d_performance"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "check_risk_flags"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "build_evidence_list"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "model_analyze_stock"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "model_analyze_stock"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "risk_judge"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "calculate_250d_performance"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "check_risk_flags"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "build_evidence_list"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "model_analyze_stock"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "model_analyze_stock"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "risk_judge"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "risk_override_applied"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.395Z",
+      "elapsedMs": 18,
+      "toolName": "generate_monthly_report"
+    },
+    {
+      "type": "tool_call",
+      "timestamp": "2026-06-17T08:20:36.397Z",
+      "elapsedMs": 20,
+      "toolName": "write_decision_log"
+    },
+    {
+      "type": "task_finished",
+      "timestamp": "2026-06-17T08:20:36.400Z",
+      "elapsedMs": 23,
+      "ok": true
+    }
+  ],
+  "toolCalls": [
+    {
+      "callId": "tool-01",
+      "toolName": "get_portfolio",
+      "startedAt": "2026-06-17T08:20:36.378Z",
+      "finishedAt": "2026-06-17T08:20:36.378Z",
+      "durationMs": 1
+    },
+    {
+      "callId": "tool-01",
+      "toolName": "get_portfolio",
+      "output": {
+        "count": 5
+      },
+      "finishedAt": "2026-06-17T08:20:36.378Z",
+      "durationMs": 1
+    },
+    {
+      "callId": "tool-02",
+      "toolName": "get_kline_250d",
+      "startedAt": "2026-06-17T08:20:36.378Z",
+      "finishedAt": "2026-06-17T08:20:36.378Z",
+      "durationMs": 1
+    },
+    {
+      "callId": "tool-02",
+      "toolName": "get_kline_250d",
+      "output": {
+        "symbols": 5
+      },
+      "finishedAt": "2026-06-17T08:20:36.385Z",
+      "durationMs": 8
+    },
+    {
+      "callId": "tool-03-000001.SZ",
+      "toolName": "calculate_250d_performance",
+      "finishedAt": "2026-06-17T08:20:36.385Z",
+      "durationMs": 8
+    },
+    {
+      "callId": "tool-04-000001.SZ",
+      "toolName": "check_risk_flags",
+      "finishedAt": "2026-06-17T08:20:36.394Z",
+      "durationMs": 17
+    },
+    {
+      "callId": "tool-05-000001.SZ",
+      "toolName": "build_evidence_list",
+      "finishedAt": "2026-06-17T08:20:36.394Z",
+      "durationMs": 17
+    },
+    {
+      "callId": "tool-06-000001.SZ",
+      "toolName": "model_analyze_stock",
+      "finishedAt": "2026-06-17T08:20:36.394Z",
+      "durationMs": 17
+    },
+    {
+      "callId": "tool-06-000001.SZ",
+      "toolName": "model_analyze_stock",
+      "output": {
+        "modelAction": "HOLD",
+        "modelSource": "mock"
+      },
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-07-000001.SZ",
+      "toolName": "risk_judge",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-03-000002.SZ",
+      "toolName": "calculate_250d_performance",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-04-000002.SZ",
+      "toolName": "check_risk_flags",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-05-000002.SZ",
+      "toolName": "build_evidence_list",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-06-000002.SZ",
+      "toolName": "model_analyze_stock",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-06-000002.SZ",
+      "toolName": "model_analyze_stock",
+      "output": {
+        "modelAction": "HOLD",
+        "modelSource": "mock"
+      },
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-07-000002.SZ",
+      "toolName": "risk_judge",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-03-000003.SZ",
+      "toolName": "calculate_250d_performance",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-04-000003.SZ",
+      "toolName": "check_risk_flags",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-judge-000003.SZ",
+      "toolName": "risk_judge",
+      "output": {
+        "action": "EXCLUDE",
+        "hardRuleApplied": true
+      },
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-03-0700.HK",
+      "toolName": "calculate_250d_performance",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-04-0700.HK",
+      "toolName": "check_risk_flags",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-05-0700.HK",
+      "toolName": "build_evidence_list",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-06-0700.HK",
+      "toolName": "model_analyze_stock",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-06-0700.HK",
+      "toolName": "model_analyze_stock",
+      "output": {
+        "modelAction": "HOLD",
+        "modelSource": "mock"
+      },
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-07-0700.HK",
+      "toolName": "risk_judge",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-03-9988.HK",
+      "toolName": "calculate_250d_performance",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-04-9988.HK",
+      "toolName": "check_risk_flags",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-05-9988.HK",
+      "toolName": "build_evidence_list",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-06-9988.HK",
+      "toolName": "model_analyze_stock",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-06-9988.HK",
+      "toolName": "model_analyze_stock",
+      "output": {
+        "modelAction": "HOLD",
+        "modelSource": "mock"
+      },
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-07-9988.HK",
+      "toolName": "risk_judge",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "trace-override-9988.HK",
+      "toolName": "risk_override_applied",
+      "output": {
+        "from": "HOLD",
+        "to": "DATA_INSUFFICIENT"
+      },
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-08",
+      "toolName": "generate_monthly_report",
+      "finishedAt": "2026-06-17T08:20:36.395Z",
+      "durationMs": 18
+    },
+    {
+      "callId": "tool-09",
+      "toolName": "write_decision_log",
+      "finishedAt": "2026-06-17T08:20:36.397Z",
+      "durationMs": 20
+    }
+  ],
+  "evidenceItems": [
+    {
+      "source": "stock_profile",
+      "title": "股票名称",
+      "value": "平安银行",
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "stock_profile.status",
+      "title": "股票状态",
+      "value": "NORMAL",
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "market_performance",
+      "title": "250日收益率(%)",
+      "value": 161.69,
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "market_performance",
+      "title": "250日最大回撤(%)",
+      "value": 0,
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "risk_gate",
+      "title": "存在严重风险",
+      "value": false,
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "stock_profile",
+      "title": "股票名称",
+      "value": "万科A",
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "stock_profile.status",
+      "title": "股票状态",
+      "value": "NORMAL",
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "market_performance",
+      "title": "250日收益率(%)",
+      "value": 206.64,
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "market_performance",
+      "title": "250日最大回撤(%)",
+      "value": 0,
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "risk_gate",
+      "title": "存在严重风险",
+      "value": false,
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "stock_profile.status",
+      "title": "股票状态",
+      "value": "ST"
+    },
+    {
+      "source": "stock_profile",
+      "title": "股票名称",
+      "value": "腾讯控股",
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "stock_profile.status",
+      "title": "股票状态",
+      "value": "NORMAL",
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "risk_gate",
+      "title": "存在严重风险",
+      "value": false,
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "stock_profile",
+      "title": "股票名称",
+      "value": "阿里巴巴",
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "stock_profile.status",
+      "title": "股票状态",
+      "value": "NORMAL",
+      "asOfDate": "2026-06"
+    },
+    {
+      "source": "risk_gate",
+      "title": "存在严重风险",
+      "value": false,
+      "asOfDate": "2026-06"
+    }
+  ],
+  "finalDecision": {
+    "symbol": "000001.SZ",
+    "action": "HOLD",
+    "confidence": 0.7,
+    "summary": "[000001.SZ] [000001.SZ] 未发现重大风险信号。",
+    "evidence": [
+      {
+        "source": "stock_profile",
+        "title": "股票名称",
+        "value": "平安银行",
+        "asOfDate": "2026-06"
+      },
+      {
+        "source": "stock_profile.status",
+        "title": "股票状态",
+        "value": "NORMAL",
+        "asOfDate": "2026-06"
+      },
+      {
+        "source": "market_performance",
+        "title": "250日收益率(%)",
+        "value": 161.69,
+        "asOfDate": "2026-06"
+      },
+      {
+        "source": "market_performance",
+        "title": "250日最大回撤(%)",
+        "value": 0,
+        "asOfDate": "2026-06"
+      },
+      {
+        "source": "risk_gate",
+        "title": "存在严重风险",
+        "value": false,
+        "asOfDate": "2026-06"
+      }
+    ],
+    "risks": [],
+    "nextWatchPoints": [
+      "下一期财报",
+      "250日相对强弱",
+      "重大公告或政策变化"
+    ],
+    "modelSource": "mock",
+    "modelResult": {
+      "action": "HOLD",
+      "confidence": 0.7,
+      "reasoning": "[000001.SZ] 未发现重大风险信号。"
+    },
+    "hardRuleApplied": false
+  },
+  "budget": {
+    "toolCalls": 22,
+    "modelCalls": 4,
+    "promptTokens": 0,
+    "completionTokens": 0,
+    "totalTokens": 0,
+    "startedAt": 1781684436378,
+    "exceeded": false,
+    "exceededReason": null,
+    "runtimeMs": 22
+  }
+}

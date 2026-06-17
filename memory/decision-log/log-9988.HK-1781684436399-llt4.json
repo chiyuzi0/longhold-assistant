@@ -1,0 +1,13 @@
+{
+  "logId": "log-9988.HK-1781684436399-llt4",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "9988.HK",
+  "action": "DATA_INSUFFICIENT",
+  "confidence": 0.5,
+  "summary": "[9988.HK] DATA_INSUFFICIENT（模型建议 HOLD -> 风控覆盖 DATA_INSUFFICIENT）",
+  "evidenceJson": "[{\"source\":\"stock_profile\",\"title\":\"股票名称\",\"value\":\"阿里巴巴\",\"asOfDate\":\"2026-06\"},{\"source\":\"stock_profile.status\",\"title\":\"股票状态\",\"value\":\"NORMAL\",\"asOfDate\":\"2026-06\"},{\"source\":\"risk_gate\",\"title\":\"存在严重风险\",\"value\":false,\"asOfDate\":\"2026-06\"}]",
+  "risksJson": "[]",
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-17T08:20:36.399Z"
+}

@@ -1,0 +1,35 @@
+{
+  "case_id": "monthly-hold-review/cashflow-deterioration",
+  "name": "现金流恶化信号",
+  "description": "经营现金流连续两个季度恶化。V0.1 尚不处理财务数据，数据不足时应为 DATA_INSUFFICIENT。",
+  "task": "对现金流恶化的持仓股票 000002.SZ 进行月度体检",
+  "portfolio": {
+    "holdings": [
+      {
+        "symbol": "000002.SZ",
+        "cost_price": 15.00,
+        "quantity": 2000
+      }
+    ]
+  },
+  "fixtures": {
+    "stock_profiles": [
+      {
+        "symbol": "000002.SZ",
+        "name": "示例现金流恶化股",
+        "market": "A_SHARE",
+        "status": "NORMAL",
+        "industry": "制造业"
+      }
+    ],
+    "daily_bars": []
+  },
+  "expected": {
+    "action": "DATA_INSUFFICIENT",
+    "risk_type": "DATA_INSUFFICIENT"
+  },
+  "forbidden_outputs": [
+    "HOLD"
+  ],
+  "required_evidence": []
+}

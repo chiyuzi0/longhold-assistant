@@ -1,0 +1,27 @@
+{
+  "case_id": "monthly-hold-review/missing-data",
+  "name": "数据缺失处理",
+  "description": "持仓股票的基础信息缺失时，应判定为 DATA_INSUFFICIENT，不允许判定为 HOLD。",
+  "task": "对数据缺失的股票 999999.XZ 进行月度体检",
+  "portfolio": {
+    "holdings": [
+      {
+        "symbol": "999999.XZ",
+        "cost_price": 20.00,
+        "quantity": 500
+      }
+    ]
+  },
+  "fixtures": {
+    "stock_profiles": [],
+    "daily_bars": []
+  },
+  "expected": {
+    "action": "DATA_INSUFFICIENT"
+  },
+  "forbidden_outputs": [
+    "HOLD",
+    "EXCLUDE"
+  ],
+  "required_evidence": []
+}

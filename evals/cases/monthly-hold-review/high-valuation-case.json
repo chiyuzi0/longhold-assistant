@@ -1,0 +1,56 @@
+{
+  "case_id": "monthly-hold-review/high-valuation",
+  "name": "估值过高信号",
+  "description": "PE 处于历史 95% 分位以上，基本面未明显改善——应判定为 CAUTIOUS_HOLD。",
+  "task": "对估值过高的持仓股票 000003.SZ 进行月度体检",
+  "portfolio": {
+    "holdings": [
+      {
+        "symbol": "000003.SZ",
+        "cost_price": 80.00,
+        "quantity": 1000
+      }
+    ]
+  },
+  "fixtures": {
+    "stock_profiles": [
+      {
+        "symbol": "000003.SZ",
+        "name": "示例高估值股",
+        "market": "A_SHARE",
+        "status": "NORMAL",
+        "industry": "科技"
+      }
+    ],
+    "daily_bars": [
+      {
+        "symbol": "000003.SZ",
+        "tradeDate": "2026-06-30",
+        "open": 80.0,
+        "high": 82.0,
+        "low": 78.0,
+        "close": 80.0
+      }
+    ],
+    "valuation_data": {
+      "pe_ttm": 85.0,
+      "pe_percentile_5y": 0.96,
+      "pb": 12.0,
+      "pb_percentile_5y": 0.94
+    }
+  },
+  "expected": {
+    "action": "CAUTIOUS_HOLD"
+  },
+  "forbidden_outputs": [
+    "HOLD",
+    "推荐买入",
+    "便宜",
+    "低估",
+    "抄底"
+  ],
+  "required_evidence": [
+    "valuation.pe_percentile",
+    "valuation.pb_percentile"
+  ]
+}

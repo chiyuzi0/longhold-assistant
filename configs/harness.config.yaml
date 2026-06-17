@@ -1,0 +1,54 @@
+# Harness Configuration
+# Agent 约束与控制层配置
+
+harness:
+  # 最大执行步数
+  max_steps: 12
+  # 最大 LLM 调用次数
+  max_llm_calls: 6
+  # 最大执行时间 (ms)
+  max_time_ms: 300000
+  # 单次任务最大 token 消耗
+  max_tokens_per_task: 40000
+  # 单次 LLM 调用最大 token
+  max_tokens_per_call: 8000
+
+  # 开关
+  enable_risk_gate: true
+  enable_evidence_gate: true
+  enable_eval_gate: false      # 初期默认关闭
+  enable_replay_log: true
+  require_user_confirmation_for_writes: true
+
+  # 权限策略
+  permissions:
+    allow_tool_calls: true
+    allow_mcp: true
+    allow_bash: true
+    allow_llm: true
+    allow_memory_write: true
+    allow_memory_read: true
+    allow_file_read: true
+    allow_file_write: false     # 默认禁止文件写入
+    allow_network_request: false # 默认禁止网络
+
+  # 需要用户确认的操作
+  require_confirmation_for:
+    - "git push"
+    - "git commit"
+    - "rm "
+    - "DELETE FROM"
+    - "DROP "
+
+  # 禁止的操作模式
+  blocked_patterns:
+    - "rm -rf"
+    - "git push --force"
+    - "curl "
+    - "wget "
+    - "> /dev/"
+    - "powershell -enc"
+
+  # 允许的网络域名（如果 allow_network_request 为 true）
+  allowed_domains:
+    - "api.deepseek.com"

@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@longhold/core": [
+        "packages/core/src/index.ts"
+      ],
+      "@longhold/data": [
+        "packages/data/src/index.ts"
+      ],
+      "@longhold/tools": [
+        "packages/tools/src/index.ts"
+      ],
+      "@longhold/skills": [
+        "packages/skills/src/index.ts"
+      ],
+      "@longhold/memory": [
+        "packages/memory/src/index.ts"
+      ],
+      "@longhold/agent": [
+        "packages/agent/src/index.ts"
+      ],
+      "@longhold/report": [
+        "packages/report/src/index.ts"
+      ],
+      "@longhold/charts": [
+        "packages/charts/src/index.ts"
+      ],
+      "@longhold/agent-runtime": [
+        "packages/agent-runtime/src/index.ts"
+      ],
+      "@longhold/harness": [
+        "packages/harness/src/index.ts"
+      ],
+      "@longhold/mcp": [
+        "packages/mcp/src/index.ts"
+      ],
+      "@longhold/evals": [
+        "packages/evals/src/index.ts"
+      ]
+    }
+  },
+  "include": [
+    "apps/**/*.ts",
+    "apps/**/*.tsx",
+    "packages/**/*.ts",
+    "scripts/**/*.ts",
+    "tests/**/*.ts"
+  ]
+}

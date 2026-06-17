@@ -1,0 +1,67 @@
+# MCP Configuration
+# MCP Server 注册列表
+
+# 注意：MCP 层不承载业务逻辑，只做外部能力适配。
+# 初期只规划接口，不一定实现全部。
+
+mcp_servers:
+  - name: duckdb-mcp
+    enabled: false
+    transport: stdio
+    command: "npx"
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-duckdb"
+      - "data/duckdb/longhold.duckdb"
+    allow_list:
+      - "query"
+      - "list_tables"
+      - "describe_table"
+    timeout_ms: 30000
+    description: "DuckDB 数据库查询 MCP Server"
+
+  - name: filesystem-readonly-mcp
+    enabled: false
+    transport: stdio
+    command: "npx"
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-filesystem"
+      - "data/"
+      - "configs/"
+    allow_list:
+      - "read_file"
+      - "list_directory"
+    timeout_ms: 10000
+    description: "只读文件系统 MCP Server"
+
+  - name: report-export-mcp
+    enabled: false
+    transport: stdio
+    command: ""
+    args: []
+    allow_list:
+      - "export_pdf"
+      - "export_markdown"
+    timeout_ms: 60000
+    description: "报告导出 MCP Server (PDF/MD)"
+
+  - name: web-search-mcp
+    enabled: false
+    transport: "streamable-http"
+    url: ""
+    allow_list:
+      - "search"
+    timeout_ms: 30000
+    description: "网络搜索 MCP Server"
+
+  - name: document-mcp
+    enabled: false
+    transport: stdio
+    command: ""
+    args: []
+    allow_list:
+      - "parse_pdf"
+      - "parse_docx"
+    timeout_ms: 30000
+    description: "文档解析 MCP Server"
