@@ -56,7 +56,13 @@ DuckDB / Parquet / Local Files
 
 负责：
 
-- DuckDB 连接；
+- DuckDB 连接（CLI + JSON 双后端）；
+- MarketDataProvider 抽象层（Mock + Live 切换）；
+- 数据缓存（Staleness-aware，4 级：fresh/stale_ok/stale_warn/stale_fail）；
+- 限流（TokenBucketRateLimiter）；
+- 安全 Fallback（禁止 Mock 静默降级 → DATA_INSUFFICIENT）；
+- RequestValidator 显式请求校验（symbol 格式/退市/黑名单）；
+- DataConfidence Score（10 因子 0~1）、Market Regime Detection（BULL/BEAR/SIDEWAYS）、Reliability Scorer（0~100 综合分）；
 - 数据导入；
 - 数据校验；
 - Parquet 管理；
@@ -83,7 +89,36 @@ DuckDB / Parquet / Local Files
   → Report 输出
 ```
 
-## 4. 本地优先原则
+## 4. V1.2 增强架构
+
+```text
+Skills Layer  (不改, 不感知数据源)
+  ↓
+Tool Layer   (9 工具, 不改)
+  ↓
+┌─────────────────────────────────────┐
+│    MarketDataProvider Interface      │  ← V1.1
+├─────────────────────────────────────┤
+│  MockProvider  |  LiveProvider       │
+├─────────────────────────────────────┤
+│  Cache (Staleness-aware 4-level)    │
+│  TokenBucketRateLimiter             │
+│  RequestValidator                   │
+│  FallbackPolicy (hard stop model)   │
+├─────────────────────────────────────┤
+│    Data Reliability Layer           │  ← V1.2
+├─────────────────────────────────────┤
+│  ConfidenceCalculator (0~1 score)   │
+│  MarketRegime (BULL/BEAR/SIDEWAYS)  │
+│  ReliabilityScorer (0~100)          │
+└─────────────────────────────────────┘
+  ↓
+Risk Judge V2 (regime + confidence 加权)
+  ↓
+HarnessRunner (Trace + Budget + Eval)
+```
+
+## 5. 本地优先原则
 
 默认所有数据保存在本地：
 

@@ -2,32 +2,28 @@
 
 ## 当前步骤
 
-轮次: 1 | 操作: 系统初始化 | 开始: 2026-06-17 | 状态: 完成
+轮次: 多个 | 状态: V1.2-reliability 已完成
 
-## 已完成
+## 已完成版本
 
-| # | 步骤 | 文件 | 状态 |
-|---|---|---|---|
-| 1 | 检查现有系统文件 | — | ✅ |
-| 2 | 读取 AGENTS.md | AGENTS.md | ✅ |
-| 3 | 创建 CLAUDE.md | CLAUDE.md | ✅ |
-| 4 | 创建 TASK.md | TASK.md | ✅ |
-| 5 | 创建 EVAL.md | EVAL.md | ✅ |
-| 6 | 创建 PROGRESS.md | PROGRESS.md | ✅ |
+| 版本 | 内容 | 状态 |
+|---|---|---|
+| V0.1-deterministic | 确定性体检闭环 | ✅ |
+| V0.2-model | DeepSeek Mock + Live | ✅ |
+| V0.3-harness | HarnessRunner / ToolRegistry / Budget | ✅ |
+| V0.3.1-hardening | DecisionSource / LLM mode / stats | ✅ |
+| V0.4-data | DuckDB / DataQuality Gate / 样本 | ✅ |
+| V1.1-live-layer | Provider / Cache / RateLimit / Fallback | ✅ |
+| V1.2-reliability | Confidence / Regime / Risk Judge V2 | ✅ |
 
 ## 当前卡点
 
-无（等待用户确认下一步方向）
+1. 无真实 DeepSeek API key → Mock 模式
+2. 无 duckdb CLI → JSON fallback
+3. Tauri 桌面端骨架未接入 CLI
 
-## 下一步动作
+## 下一步方向
 
-请用户从 TASK.md 的备选方向中选择：
-
-- A: V0.5-multi-agent — 三 Agent 协作分析
-- B: V0.4.1-real-data — 真实数据接入
-- C: V0.4-ui — Tauri 桌面端看板
-- D: V0.4.2-eval-extend — 扩展评估体系
-
-## 最近执行结果
-
-系统文件初始化完成。
+- V1.3-multi-agent: Bull/Bear/Risk Judge 三 Agent
+- V1.4-ui: Tauri 桌面看板
+- V1.5-real-data: AKShare/Tushare 接入

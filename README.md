@@ -1,200 +1,152 @@
 # LongHold Assistant — A/H 股长线持仓 AI Agent 研究工作台
 
-> 目标：构建一个有数据、有规则、有工具、有 Skills、有 Memory、有 Eval 的长线投资分析助手。
-
-LongHold Assistant 不是"AI 荐股软件"，也不是纯聊天机器人，而是一个 **受控多 Agent 架构的长线持仓研究助手**。
-
-- 这家公司是否仍然符合长期持有逻辑？
-- 当前风险是价格波动还是基本面恶化？
-- 投资假设是否被证伪？
-- 月度、季度、年度复盘应该看什么？
+> 版本 0.1.0 · 14/14 Eval 通过 · [GitHub](https://github.com/chiyuzi0/longhold-assistant)
 
 ---
 
-## 1. 技术栈
+## 1. 当前状态（V1.2）
+
+```
+每月持仓体检确定性闭环   ✅ 完全实现
+DuckDB 数据层             ✅ 完全实现
+Data Provider 抽象层      ✅ V1.1 完成 (Mock + Live)
+Data Reliability 层       ✅ V1.2 完成 (Confidence + Regime + Scorer)
+Tauri 桌面端               🔧 骨架就绪
+多 Agent 协作              🔧 规划中
+实时数据源接入             🔧 规划中
+```
+
+---
+
+## 2. 技术栈
 
 | 层级 | 技术 |
 |---|---|
-| 桌面应用 | Tauri 2 |
-| 主语言 | TypeScript (strict) |
+| 主语言 | TypeScript (strict) + JavaScript (CommonJS runtime) |
+| 桌面框架 | Tauri 2 (骨架) |
 | 前端 | React + TypeScript |
-| 图表 | ECharts + Lightweight Charts |
-| 数据库 | DuckDB |
+| 图表 | ECharts / Lightweight Charts |
+| 本地数据库 | DuckDB (CLI) / JSON-fallback |
 | 数据格式 | Parquet / CSV |
-| 模型 | DeepSeek V4 系列（Pro / Flash） |
-| Agent 架构 | 受控状态机式 Agent Loop — 不做无线自由循环 |
+| 模型 | DeepSeek V4 (Pro / Flash) + Mock |
+| Agent 架构 | 受控状态机 (11 states, 非 ReAct) |
 | 包管理 | pnpm (Monorepo) |
-| 测试 | Vitest |
 
 ---
 
-## 2. 架构分层
+## 3. 架构分层
 
-```text
-                        ┌────────────────────────┐
-                        │     Desktop UI           │  (Tauri + React)
-                        └───────────┬────────────┘
-                                    │
-                        ┌───────────▼────────────┐
-                        │    Control Plane        │  (agent-runtime)
-                        │  Task Router → Loop     │
-                        │  Skill Runner → Tool    │
-                        │  Evidence → Validator   │
-                        └───────────┬────────────┘
-                                    │
-       ┌────────────────────────────┼────────────────────────────┐
-       │                            │                            │
-┌──────▼──────┐  ┌──────────┐  ┌────▼─────┐  ┌──────────┐  ┌───▼────────┐
-│   Skills    │  │  Agents  │  │  Tools   │  │   MCP    │  │  Memory    │
-│  工作流编排  │  │ 多角色分析│  │ 确定性计算│  │ 外部能力  │  │  长期记忆   │
-└──────┬──────┘  └──────────┘  └────┬─────┘  └──────────┘  └─────┬──────┘
-       │                            │                            │
-       └────────────────────────────┼────────────────────────────┘
-                                    │
-                        ┌───────────▼────────────┐
-                        │        Harness          │  (约束与控制)
-                        │ Registry / Permission   │
-                        │ Budget / Risk Gate      │
-                        │ Bash / Replay / Eval    │
-                        └───────────┬────────────┘
-                                    │
-                        ┌───────────▼────────────┐
-                        │   Data Layer            │
-                        │ DuckDB / Parquet / CSV  │
-                        └────────────────────────┘
+```
+                        ┌──────────────────────┐
+                        │  Skills Layer         │  (工作流编排, 不感知数据源)
+                        └──────────┬───────────┘
+                                   │
+                        ┌──────────▼───────────┐
+                        │  Tool Layer           │  (9 个确定性工具)
+                        └──────────┬───────────┘
+                                   │
+                        ┌──────────▼───────────┐
+                        │  DataProvider         │  ← V1.1: Mock/Live 切换
+                        ├───────────────────────┤
+                        │  Data Reliability     │  ← V1.2: Confidence + Regime
+                        └──────────┬───────────┘
+                                   │
+            ┌──────────────────────┼──────────────────────┐
+            ▼                      ▼                      ▼
+     DuckDB/CSV              ProviderFactory       HTTP API (Live)
+     (V0.4)                  (V1.1)                (V1.1 规划)
 ```
 
-### 10 个核心包
+### 核心包
 
 | 包 | 定位 |
 |---|---|
-| `core` | 领域模型、评分模型、风险规则 |
-| `data` | DuckDB、Parquet、数据导入/导出 |
-| `tools` | 工具层 — 确定性、可测试、可审计的函数 |
-| `skills` | Skills 层 — 可复用研究工作流 |
-| `agent-runtime` | Control Plane — 受控状态机式 Agent Loop |
-| `harness` | 安全笼 — Registry / 权限 / 预算 / Bash / Replay / Eval Gate |
-| `mcp` | MCP 层 — 外部能力适配（不承载业务逻辑） |
-| `memory` | 记忆层 — 用户偏好、持仓记忆、投资假设、决策日志 |
-| `evals` | 评估层 — 五层 Agent Eval（Tool/Skill/Trajectory/Output/Business） |
-| `report` | 报告层 — Markdown / PDF 生成 |
+| `core` | 领域模型 / 评分 / 风险规则 |
+| `data` | 数据层 (DuckDB / Provider / Cache / Reliability) |
+| `tools` | 工具层 — 9 个确定性工具 |
+| `skills` | Skills 层 — monthly-hold-review 工作流 |
+| `agent-runtime` | 受控状态机 Agent Loop |
+| `harness` | 安全笼 (Registry / Budget / Risk Gate / Trace) |
+| `evals` | 14 个 Eval Cases |
+| `report` | 报告生成 |
+| `memory` | 记忆层 schema |
+| `mcp` | MCP 适配 (规划) |
 
 ---
 
-## 3. Agent 架构（重点）
+## 4. V1.2 新增能力
 
-### 受控 Agent Loop（不是 ReAct）
+### DataConfidence Score
+
+每次数据请求计算 0~1 置信度：
 
 ```
-INIT → LOAD_CONTEXT → SELECT_SKILL → PLAN → EXECUTE_STEP
-  → VALIDATE_RESULT → COLLECT_EVIDENCE → ANALYZE → JUDGE
-  → REPORT → WRITE_MEMORY → FINISH
++0.3 live source  +0.2 kline≥250  +0.1 no gaps
++0.1 fresh data   +0.1 volume>0   +0.1 cache hit
+-0.3 stale warn   -0.5 stale fail -0.7 fallback
 ```
 
-硬约束：
-- 最大步数：12
-- 最大 LLM 调用次数：6
-- 最大时间：300s
-- 硬规则 Gate：ST/退市 → 强制 EXCLUDE（不可被 LLM 覆盖）
+### Risk Judge V1.2
 
-详见 `docs/agent-loop.md` 和 `docs/control-plane.md`。
+```
+qualityLevel LOW/UNTRUSTED  → HOLD 降级 CAUTIOUS_HOLD
+qualityLevel MEDIUM         → HOLD 不允许
+BEAR regime                 → HOLD→WATCH, WATCH→CAUTIOUS_HOLD
+BULL + HIGH confidence      → 允许温和升级
+```
 
-### Harness 控制
+### 市场环境检测
 
-Harness 是 Agent 的"安全笼"，管控一切：
-- Tool / Skill / MCP / Bash 注册表
-- 权限策略
-- 预算策略（token/步数/时间）
-- 硬规则 Gate
-- 证据链 Gate
-- Bash 命令白名单
-- Replay 回放
-- Regression Gate
-
-详见 `docs/harness-design.md` 和 `docs/bash-layer.md`。
-
-### 五层 Eval
-
-| Layer | 名称 | 评估对象 |
-|---|---|---|
-| 1 | Tool Eval | 工具计算正确性 |
-| 2 | Skill Eval | Skill 流程完整性 |
-| 3 | Trajectory Eval | Agent 路径效率 |
-| 4 | Output Eval | 输出正确性 |
-| 5 | Business Eval | 投资逻辑合理性 |
-
-详见 `docs/agent-eval.md`。
-
----
-
-## 4. 目录结构
-
-```text
-longhold-assistant/
-├─ apps/desktop/                    # Tauri + React 桌面应用
-├─ packages/
-│  ├─ core/                         # 领域模型 / 评分 / 风险规则
-│  ├─ data/                         # DuckDB / Parquet / 仓储
-│  ├─ tools/                        # 工具层（确定性函数）
-│  ├─ skills/                       # Skills 层（工作流编排）
-│  ├─ agent-runtime/                # Control Plane（Agent Loop）
-│  ├─ harness/                      # 约束与控制（安全笼）
-│  ├─ mcp/                          # MCP 层（外部能力适配）
-│  ├─ memory/                       # 记忆层（长期上下文）
-│  ├─ evals/                        # 评估层（五层 Eval）
-│  ├─ report/                       # 报告层
-│  └─ charts/                       # 图表封装
-├─ configs/                         # 配置文件
-├─ docs/                            # 架构文档
-├─ evals/cases/                     # Eval 用例
-├─ memory/                          # 记忆存储
-├─ scripts/                         # 数据采集脚本
-├─ prompts/                         # 提示词模板
-└─ tests/                           # 测试
+```
+250日收益 > +20%  → BULL
+250日收益 < -20%  → BEAR
+otherwise         → SIDEWAYS
 ```
 
 ---
 
-## 5. 决策输出格式
+## 5. 验收命令
+
+```bash
+pnpm demo:monthly-review     # 月度持仓体检
+pnpm eval:monthly            # 集成验证 (6 项)
+pnpm eval:monthly:unit       # 单元测试 (14 cases)
+pnpm init:db                 # 初始化数据库
+pnpm fetch:sample-data       # 拉取样本数据
+```
+
+---
+
+## 6. 决策输出
 
 | 结论 | 含义 |
 |---|---|
-| HOLD | 长线逻辑仍成立，未触发重大风险 |
+| HOLD | 长线逻辑成立，无重大风险 |
 | WATCH | 加入观察池 |
-| CAUTIOUS_HOLD | 有风险信号，需跟踪下一期数据 |
-| REDUCE_EXIT | 投资假设被部分或明显证伪 |
-| EXCLUDE | 不符合长线跟踪标准 |
-
-每个结论必须包含：关键证据、风险点、反方观点、下一次观察点、触发撤出条件。
-
----
-
-## 6. 启动
-
-```bash
-pnpm install
-pnpm data:init
-pnpm dev:desktop   # 启动桌面应用
-pnpm test          # 运行测试
-pnpm typecheck     # 类型检查
-```
+| CAUTIOUS_HOLD | 有风险信号，需跟踪 |
+| REDUCE_EXIT | 投资假设被证伪 |
+| EXCLUDE | 不符合长线标准 |
+| DATA_INSUFFICIENT | 数据不足，不可判定 |
 
 ---
 
-## 7. MVP 路线
+## 7. Roadmap
 
-| 版本 | 目标 |
+| 版本 | 完成 |
 |---|---|
-| V0.1 | 本地工作台骨架 + 月度持仓体检闭环 + Eval |
-| V0.2 | 财报数据接入 + 财务风险规则 + 单股研究 |
-| V0.3 | 港股支持 + 观察池管理 |
-| V0.4 | Agent 多角色分析 + 报告中心 |
-| V1.0 | 可用 EXE + 加密存储 + 完整文档 |
+| V0.1-deterministic | 确定性体检闭环 |
+| V0.2-model | DeepSeek Mock + Live 双模式 |
+| V0.3-harness | HarnessRunner / ToolRegistry / Budget |
+| V0.3.1-hardening | DecisionSource / LLM mode / unified stats |
+| V0.4-data | DuckDB / DataQuality Gate / 样本数据 |
+| V1.1-live-layer | MarketDataProvider / Cache / RateLimit / Fallback |
+| V1.2-reliability | Confidence Score / Regime Detection / Risk Judge V2 |
+| V1.3-multi-agent | Bull/Bear/Risk Judge (规划) |
+| V1.4-ui | Tauri 桌面端 (规划) |
+| V1.5-real-data | AKShare/Tushare (规划) |
 
 ---
 
 ## 8. 免责声明
 
-本项目用于个人研究、数据整理和长期投资复盘，不构成任何投资建议。
-所有模型输出必须附带数据来源、计算过程和风险提示。
-用户应自行判断并承担投资风险。
+个人投资研究工具，不构成投资建议。所有输出必须有证据链。
