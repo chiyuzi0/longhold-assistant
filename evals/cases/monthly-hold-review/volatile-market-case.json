@@ -1,0 +1,47 @@
+{
+  "case_id": "monthly-hold-review/volatile-market",
+  "name": "高波动市场环境",
+  "description": "250日收益 < -20%，市场处于 BEAR 环境 → confidence MEDIUM + BEAR → 最终 CAUTIOUS_HOLD。",
+  "task": "对 BEAR 市场环境下的股票 600520.SH 进行月度体检",
+  "portfolio": {
+    "holdings": [{"symbol": "600520.SH", "cost_price": 50.00, "quantity": 1000}]
+  },
+  "fixtures": {
+    "stock_profiles": [{"symbol": "600520.SH", "name": "波动测试股", "market": "A_SHARE", "status": "NORMAL"}],
+    "daily_bars": [
+      {"symbol": "600520.SH", "tradeDate": "2026-02-01", "open": 100.0, "high": 102.0, "low": 99.0, "close": 101.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-02-10", "open": 101.0, "high": 103.0, "low": 98.0, "close": 99.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-02-20", "open": 99.0, "high": 100.0, "low": 95.0, "close": 96.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-03-01", "open": 96.0, "high": 97.0, "low": 92.0, "close": 93.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-03-10", "open": 93.0, "high": 95.0, "low": 90.0, "close": 91.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-03-20", "open": 91.0, "high": 92.0, "low": 87.0, "close": 88.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-04-01", "open": 88.0, "high": 90.0, "low": 85.0, "close": 86.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-04-10", "open": 86.0, "high": 88.0, "low": 83.0, "close": 84.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-04-20", "open": 84.0, "high": 85.0, "low": 80.0, "close": 81.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-05-01", "open": 81.0, "high": 83.0, "low": 78.0, "close": 79.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-05-10", "open": 79.0, "high": 81.0, "low": 76.0, "close": 77.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-05-20", "open": 77.0, "high": 78.0, "low": 74.0, "close": 75.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-01", "open": 75.0, "high": 76.0, "low": 72.0, "close": 73.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-05", "open": 73.0, "high": 75.0, "low": 71.0, "close": 72.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-10", "open": 72.0, "high": 73.0, "low": 70.0, "close": 71.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-12", "open": 71.0, "high": 72.0, "low": 69.0, "close": 70.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-14", "open": 70.0, "high": 71.0, "low": 68.0, "close": 69.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-16", "open": 69.0, "high": 70.0, "low": 67.0, "close": 68.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-17", "open": 68.0, "high": 69.0, "low": 66.0, "close": 67.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-18", "open": 67.0, "high": 68.0, "low": 65.0, "close": 66.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-19", "open": 66.0, "high": 67.0, "low": 64.0, "close": 65.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-20", "open": 65.0, "high": 66.0, "low": 63.0, "close": 64.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-21", "open": 64.0, "high": 65.0, "low": 62.0, "close": 63.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-22", "open": 63.0, "high": 64.0, "low": 61.0, "close": 62.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-23", "open": 62.0, "high": 63.0, "low": 60.0, "close": 61.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-24", "open": 61.0, "high": 62.0, "low": 59.0, "close": 60.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-25", "open": 60.0, "high": 61.0, "low": 58.0, "close": 59.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-26", "open": 59.0, "high": 60.0, "low": 57.0, "close": 58.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-27", "open": 58.0, "high": 59.0, "low": 56.0, "close": 57.0, "volume": 1000000},
+      {"symbol": "600520.SH", "tradeDate": "2026-06-28", "open": 57.0, "high": 58.0, "low": 55.0, "close": 56.0, "volume": 1000000}
+    ]
+  },
+  "expected": {"action": "CAUTIOUS_HOLD"},
+  "forbidden_outputs": ["HOLD"],
+  "required_evidence": ["daily_bar.close"]
+}

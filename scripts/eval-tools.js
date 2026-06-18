@@ -20,6 +20,7 @@ function createFixtureTools(evalCase) {
     klines[sym].push({
       symbol: sym, tradeDate: b.tradeDate || b.trade_date,
       open: b.open, high: b.high, low: b.low, close: b.close,
+      volume: b.volume,
     });
   }
 

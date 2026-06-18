@@ -1,6 +1,27 @@
-// risk-judge.js — 风控裁决
+// risk-judge.cjs — V1.2 风控裁决
+// 升级: regime + confidence weighting
+// 硬约束: EXCLUDE 永远不可被 override
 
 const SEVERITY = { EXCLUDE: 100, DATA_INSUFFICIENT: 90, REDUCE_EXIT: 80, CAUTIOUS_HOLD: 60, WATCH: 40, HOLD: 20 };
+
+const DOWNGRADE_MAP = {
+  HOLD: 'WATCH',
+  WATCH: 'CAUTIOUS_HOLD',
+  CAUTIOUS_HOLD: 'CAUTIOUS_HOLD',  // 不可再降
+  REDUCE_EXIT: 'REDUCE_EXIT',
+  EXCLUDE: 'EXCLUDE',
+};
+
+function downgradeOneLevel(action) {
+  return DOWNGRADE_MAP[action] || action;
+}
+
+function upgradeOneLevel(action) {
+  if (action === 'HOLD') return 'HOLD';
+  if (action === 'WATCH') return 'HOLD';
+  if (action === 'CAUTIOUS_HOLD') return 'WATCH';
+  return action;
+}
 
 async function execute(input, ctx) {
   // Judge 独立评估
@@ -13,21 +34,56 @@ async function execute(input, ctx) {
   const jSev = SEVERITY[judgeAction] || 0;
   const mSev = SEVERITY[input.modelAction] || 0;
 
-  // 硬规则触发 → 覆盖
+  // 硬规则触发 → 覆盖（不可被任何规则覆盖）
   if (input.hasCriticalRisk || !input.hasData) {
-    return { ok: true, data: { action: judgeAction, confidence: judgeConf, hardRuleApplied: true, severityConflict: jSev !== mSev } };
+    return { ok: true, data: { action: judgeAction, confidence: judgeConf, hardRuleApplied: true, severityConflict: jSev !== mSev, reliabilityGateApplied: false } };
   }
-  // Judge 更保守 → 覆盖
-  if (jSev > mSev) {
-    return { ok: true, data: { action: judgeAction, confidence: judgeConf, hardRuleApplied: false, severityConflict: true } };
+
+  // ===== V1.2: Data Confidence Gate =====
+  const dq = (ctx && ctx.dataQuality) || {};
+  let adjustedAction = judgeAction;
+  let reliabilityGateApplied = false;
+
+  // ① LOW / UNTRUSTED → CAUTIOUS_HOLD 硬降（不可升）
+  if (dq.qualityLevel === 'LOW' || dq.qualityLevel === 'UNTRUSTED') {
+    if (adjustedAction === 'HOLD') adjustedAction = 'CAUTIOUS_HOLD';
+    else adjustedAction = downgradeOneLevel(adjustedAction);
+    reliabilityGateApplied = true;
   }
-  // 一致 → 用 LLM（即便 LLM 输出非法，也会被前面的 jSev > mSev 捕获，因为非法值 mSev=0）
-  return { ok: true, data: { action: input.modelAction, confidence: input.modelConfidence, hardRuleApplied: false, severityConflict: false } };
+
+  // ② MEDIUM → CAUTIOUS_HOLD only（HOLD 不允许）
+  if (dq.qualityLevel === 'MEDIUM' && adjustedAction === 'HOLD') {
+    adjustedAction = 'CAUTIOUS_HOLD';
+    reliabilityGateApplied = true;
+  }
+
+  // ③ BEAR regime → 更保守
+  if (dq.regime === 'BEAR') {
+    if (adjustedAction === 'HOLD') { adjustedAction = 'WATCH'; reliabilityGateApplied = true; }
+    else if (adjustedAction === 'WATCH') { adjustedAction = 'CAUTIOUS_HOLD'; reliabilityGateApplied = true; }
+  }
+
+  // ④ BULL + HIGH confidence → 允许升级（不覆盖 EXCLUDE）
+  if (dq.regime === 'BULL' && dq.qualityLevel === 'HIGH' && adjustedAction !== 'EXCLUDE') {
+    const upgraded = upgradeOneLevel(adjustedAction);
+    if (upgraded !== adjustedAction) reliabilityGateApplied = true;
+    adjustedAction = upgraded;
+  }
+
+  // ===== Severity conflict with model =====
+  const adjSev = SEVERITY[adjustedAction] || 0;
+
+  if (adjSev > mSev) {
+    return { ok: true, data: { action: adjustedAction, confidence: judgeConf, hardRuleApplied: false, severityConflict: true, reliabilityGateApplied } };
+  }
+
+  // 一致 → 用 LLM
+  return { ok: true, data: { action: input.modelAction, confidence: input.modelConfidence, hardRuleApplied: false, severityConflict: false, reliabilityGateApplied } };
 }
 
 module.exports = {
   name: 'risk_judge',
-  description: '风控裁决：硬规则优先，severity 覆盖，非法 LLM 输出降级到 CAUTIOUS_HOLD',
+  description: 'V1.2 风控裁决：硬规则优先 + regime/confidence 加权',
   category: 'risk',
   permission: 'judge',
   inputSchema: { type: 'object', properties: {
@@ -38,6 +94,7 @@ module.exports = {
   outputSchema: { type: 'object', properties: {
     action: { type: 'string' }, confidence: { type: 'number' },
     hardRuleApplied: { type: 'boolean' }, severityConflict: { type: 'boolean' },
+    reliabilityGateApplied: { type: 'boolean' },
   }},
   execute,
 };

@@ -4,45 +4,2374 @@
   "description": "模型输出非法 action（如「BUY」「SELL」「STRONG_BUY」）时，system 必须使用 risk_judge 结果，decisionSource 应为 fallback_on_invalid_model_output。",
   "task": "对正常股票 000008.SZ 进行月度体检（模拟 LLM 输出非法枚举）",
   "portfolio": {
-    "holdings": [{"symbol": "000008.SZ", "cost_price": 50.00, "quantity": 500}]
-  },
-  "fixtures": {
-    "stock_profiles": [{"symbol": "000008.SZ", "name": "测试股C", "market": "A_SHARE", "status": "NORMAL"}],
-    "daily_bars": [
-      {"symbol": "000008.SZ", "tradeDate": "2025-09-01", "open": 48.0, "high": 48.5, "low": 47.8, "close": 48.2},
-      {"symbol": "000008.SZ", "tradeDate": "2025-10-01", "open": 48.2, "high": 48.8, "low": 48.0, "close": 48.5},
-      {"symbol": "000008.SZ", "tradeDate": "2025-11-01", "open": 48.5, "high": 49.0, "low": 48.2, "close": 48.8},
-      {"symbol": "000008.SZ", "tradeDate": "2025-12-01", "open": 48.8, "high": 49.2, "low": 48.5, "close": 49.0},
-      {"symbol": "000008.SZ", "tradeDate": "2026-01-01", "open": 49.0, "high": 49.5, "low": 48.8, "close": 49.2},
-      {"symbol": "000008.SZ", "tradeDate": "2026-02-01", "open": 49.2, "high": 49.8, "low": 49.0, "close": 49.5},
-      {"symbol": "000008.SZ", "tradeDate": "2026-03-01", "open": 49.5, "high": 50.0, "low": 49.2, "close": 49.8},
-      {"symbol": "000008.SZ", "tradeDate": "2026-04-01", "open": 49.8, "high": 50.2, "low": 49.5, "close": 50.0},
-      {"symbol": "000008.SZ", "tradeDate": "2026-05-01", "open": 50.0, "high": 50.5, "low": 49.8, "close": 50.2},
-      {"symbol": "000008.SZ", "tradeDate": "2026-06-01", "open": 50.2, "high": 50.8, "low": 50.0, "close": 50.5},
-      {"symbol": "000008.SZ", "tradeDate": "2026-06-05", "open": 50.5, "high": 51.0, "low": 50.2, "close": 50.8},
-      {"symbol": "000008.SZ", "tradeDate": "2026-06-10", "open": 50.8, "high": 51.2, "low": 50.5, "close": 51.0},
-      {"symbol": "000008.SZ", "tradeDate": "2026-06-15", "open": 51.0, "high": 51.5, "low": 50.8, "close": 51.2},
-      {"symbol": "000008.SZ", "tradeDate": "2026-06-20", "open": 51.2, "high": 51.8, "low": 51.0, "close": 51.5},
-      {"symbol": "000008.SZ", "tradeDate": "2026-06-25", "open": 51.5, "high": 52.0, "low": 51.2, "close": 51.8},
-      {"symbol": "000008.SZ", "tradeDate": "2026-06-28", "open": 51.8, "high": 52.2, "low": 51.5, "close": 52.0},
-      {"symbol": "000008.SZ", "tradeDate": "2026-06-29", "open": 52.0, "high": 52.5, "low": 51.8, "close": 52.2},
-      {"symbol": "000008.SZ", "tradeDate": "2026-06-30", "open": 52.2, "high": 52.8, "low": 52.0, "close": 52.5},
-      {"symbol": "000008.SZ", "tradeDate": "2026-07-01", "open": 52.5, "high": 53.0, "low": 52.2, "close": 52.8},
-      {"symbol": "000008.SZ", "tradeDate": "2026-07-05", "open": 52.8, "high": 53.2, "low": 52.5, "close": 53.0},
-      {"symbol": "000008.SZ", "tradeDate": "2026-07-10", "open": 53.0, "high": 53.5, "low": 52.8, "close": 53.2},
-      {"symbol": "000008.SZ", "tradeDate": "2026-07-15", "open": 53.2, "high": 53.8, "low": 53.0, "close": 53.5},
-      {"symbol": "000008.SZ", "tradeDate": "2026-07-20", "open": 53.5, "high": 54.0, "low": 53.2, "close": 53.8},
-      {"symbol": "000008.SZ", "tradeDate": "2026-07-25", "open": 53.8, "high": 54.2, "low": 53.5, "close": 54.0},
-      {"symbol": "000008.SZ", "tradeDate": "2026-08-01", "open": 54.0, "high": 54.5, "low": 53.8, "close": 54.2},
-      {"symbol": "000008.SZ", "tradeDate": "2026-08-05", "open": 54.2, "high": 54.8, "low": 54.0, "close": 54.5},
-      {"symbol": "000008.SZ", "tradeDate": "2026-08-10", "open": 54.5, "high": 55.0, "low": 54.2, "close": 54.8},
-      {"symbol": "000008.SZ", "tradeDate": "2026-08-15", "open": 54.8, "high": 55.2, "low": 54.5, "close": 55.0},
-      {"symbol": "000008.SZ", "tradeDate": "2026-08-20", "open": 55.0, "high": 55.5, "low": 54.8, "close": 55.2},
-      {"symbol": "000008.SZ", "tradeDate": "2026-08-25", "open": 55.2, "high": 55.8, "low": 55.0, "close": 55.5},
-      {"symbol": "000008.SZ", "tradeDate": "2026-09-01", "open": 55.5, "high": 56.0, "low": 55.2, "close": 55.8}
+    "holdings": [
+      {
+        "symbol": "000008.SZ",
+        "cost_price": 50,
+        "quantity": 500
+      }
     ]
   },
-  "expected": {"action": "HOLD"},
-  "forbidden_outputs": ["EXCLUDE", "DATA_INSUFFICIENT"],
-  "required_evidence": ["daily_bar.close"]
+  "fixtures": {
+    "stock_profiles": [
+      {
+        "symbol": "000008.SZ",
+        "name": "测试股C",
+        "market": "A_SHARE",
+        "status": "NORMAL"
+      }
+    ],
+    "daily_bars": [
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-13",
+        "open": 32.42,
+        "high": 33.58,
+        "low": 30.51,
+        "close": 32.42,
+        "volume": 6880614
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-14",
+        "open": 31.88,
+        "high": 33.22,
+        "low": 30.85,
+        "close": 31.88,
+        "volume": 6223656
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-17",
+        "open": 33.2,
+        "high": 35.02,
+        "low": 31.77,
+        "close": 33.2,
+        "volume": 6578319
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-18",
+        "open": 32.09,
+        "high": 33.88,
+        "low": 30.65,
+        "close": 32.09,
+        "volume": 9441403
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-19",
+        "open": 33.38,
+        "high": 34.54,
+        "low": 31.59,
+        "close": 33.38,
+        "volume": 9752025
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-20",
+        "open": 32.94,
+        "high": 34.21,
+        "low": 31.92,
+        "close": 32.94,
+        "volume": 7971674
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-21",
+        "open": 32.83,
+        "high": 34.71,
+        "low": 31.38,
+        "close": 32.83,
+        "volume": 7181664
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-24",
+        "open": 33.54,
+        "high": 34.95,
+        "low": 31.73,
+        "close": 33.54,
+        "volume": 7885681
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-25",
+        "open": 32.26,
+        "high": 33.89,
+        "low": 31,
+        "close": 32.26,
+        "volume": 9668219
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-26",
+        "open": 33.74,
+        "high": 34.84,
+        "low": 32.39,
+        "close": 33.74,
+        "volume": 6169532
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-27",
+        "open": 32.1,
+        "high": 33.39,
+        "low": 30.44,
+        "close": 32.1,
+        "volume": 5448308
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-11-28",
+        "open": 33.79,
+        "high": 34.94,
+        "low": 32.77,
+        "close": 33.79,
+        "volume": 7717572
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-01",
+        "open": 32.74,
+        "high": 33.75,
+        "low": 30.89,
+        "close": 32.74,
+        "volume": 7548256
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-02",
+        "open": 32.58,
+        "high": 34.34,
+        "low": 31.19,
+        "close": 32.58,
+        "volume": 6858682
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-03",
+        "open": 32.95,
+        "high": 34.93,
+        "low": 31.51,
+        "close": 32.95,
+        "volume": 6697974
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-04",
+        "open": 32.28,
+        "high": 33.66,
+        "low": 30.8,
+        "close": 32.28,
+        "volume": 5473238
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-05",
+        "open": 32.57,
+        "high": 33.99,
+        "low": 31.1,
+        "close": 32.57,
+        "volume": 7844713
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-08",
+        "open": 33.71,
+        "high": 34.92,
+        "low": 32.16,
+        "close": 33.71,
+        "volume": 6617043
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-09",
+        "open": 33.97,
+        "high": 35.29,
+        "low": 32.51,
+        "close": 33.97,
+        "volume": 7006834
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-10",
+        "open": 33.57,
+        "high": 34.92,
+        "low": 31.62,
+        "close": 33.57,
+        "volume": 9405145
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-11",
+        "open": 33.42,
+        "high": 35.23,
+        "low": 32.02,
+        "close": 33.42,
+        "volume": 5515937
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-12",
+        "open": 32.75,
+        "high": 34.18,
+        "low": 31.48,
+        "close": 32.75,
+        "volume": 8596458
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-15",
+        "open": 33.73,
+        "high": 35.48,
+        "low": 32.43,
+        "close": 33.73,
+        "volume": 5010225
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-16",
+        "open": 33.46,
+        "high": 35.12,
+        "low": 31.7,
+        "close": 33.46,
+        "volume": 9343954
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-17",
+        "open": 33.99,
+        "high": 35.87,
+        "low": 32.26,
+        "close": 33.99,
+        "volume": 5353636
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-18",
+        "open": 32.37,
+        "high": 34.22,
+        "low": 30.84,
+        "close": 32.37,
+        "volume": 6770694
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-19",
+        "open": 33.04,
+        "high": 34.74,
+        "low": 31.29,
+        "close": 33.04,
+        "volume": 8460817
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-22",
+        "open": 32.61,
+        "high": 34.57,
+        "low": 31.22,
+        "close": 32.61,
+        "volume": 9414373
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-23",
+        "open": 32.42,
+        "high": 33.57,
+        "low": 31.11,
+        "close": 32.42,
+        "volume": 7145655
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-24",
+        "open": 33.31,
+        "high": 34.48,
+        "low": 31.66,
+        "close": 33.31,
+        "volume": 9167838
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-25",
+        "open": 33.18,
+        "high": 34.71,
+        "low": 31.83,
+        "close": 33.18,
+        "volume": 7626603
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-26",
+        "open": 34.14,
+        "high": 35.8,
+        "low": 32.45,
+        "close": 34.14,
+        "volume": 5384681
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-29",
+        "open": 34.28,
+        "high": 36.11,
+        "low": 32.6,
+        "close": 34.28,
+        "volume": 6005574
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-30",
+        "open": 32.63,
+        "high": 34.34,
+        "low": 31.54,
+        "close": 32.63,
+        "volume": 9555993
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2025-12-31",
+        "open": 34.17,
+        "high": 35.75,
+        "low": 32.42,
+        "close": 34.17,
+        "volume": 5014675
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-01",
+        "open": 33.92,
+        "high": 35.92,
+        "low": 31.98,
+        "close": 33.92,
+        "volume": 8900912
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-02",
+        "open": 33.67,
+        "high": 34.91,
+        "low": 32.36,
+        "close": 33.67,
+        "volume": 6606828
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-05",
+        "open": 33.7,
+        "high": 35.33,
+        "low": 31.9,
+        "close": 33.7,
+        "volume": 5304822
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-06",
+        "open": 33.09,
+        "high": 34.15,
+        "low": 31.64,
+        "close": 33.09,
+        "volume": 6244300
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-07",
+        "open": 32.77,
+        "high": 34.74,
+        "low": 30.96,
+        "close": 32.77,
+        "volume": 8874130
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-08",
+        "open": 34.56,
+        "high": 35.98,
+        "low": 32.91,
+        "close": 34.56,
+        "volume": 6778075
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-09",
+        "open": 34.51,
+        "high": 35.81,
+        "low": 33.01,
+        "close": 34.51,
+        "volume": 8377879
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-12",
+        "open": 33.38,
+        "high": 34.65,
+        "low": 31.86,
+        "close": 33.38,
+        "volume": 9746830
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-13",
+        "open": 34.59,
+        "high": 36.19,
+        "low": 32.79,
+        "close": 34.59,
+        "volume": 5799258
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-14",
+        "open": 33.93,
+        "high": 35.43,
+        "low": 32.08,
+        "close": 33.93,
+        "volume": 7263257
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-15",
+        "open": 32.9,
+        "high": 34.13,
+        "low": 31.49,
+        "close": 32.9,
+        "volume": 5098802
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-16",
+        "open": 33.06,
+        "high": 34.36,
+        "low": 31.8,
+        "close": 33.06,
+        "volume": 8866686
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-19",
+        "open": 33.86,
+        "high": 35.68,
+        "low": 32.57,
+        "close": 33.86,
+        "volume": 6666319
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-20",
+        "open": 34.5,
+        "high": 36.05,
+        "low": 32.68,
+        "close": 34.5,
+        "volume": 5973875
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-21",
+        "open": 33.84,
+        "high": 34.97,
+        "low": 32.24,
+        "close": 33.84,
+        "volume": 8573126
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-22",
+        "open": 33.22,
+        "high": 34.95,
+        "low": 31.35,
+        "close": 33.22,
+        "volume": 5059916
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-23",
+        "open": 34.25,
+        "high": 35.87,
+        "low": 32.95,
+        "close": 34.25,
+        "volume": 5090380
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-26",
+        "open": 33.79,
+        "high": 35.54,
+        "low": 32.7,
+        "close": 33.79,
+        "volume": 5452111
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-27",
+        "open": 34.6,
+        "high": 35.73,
+        "low": 33.21,
+        "close": 34.6,
+        "volume": 8974201
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-28",
+        "open": 34.52,
+        "high": 36.02,
+        "low": 33.02,
+        "close": 34.52,
+        "volume": 7723501
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-29",
+        "open": 34.84,
+        "high": 35.89,
+        "low": 33.36,
+        "close": 34.84,
+        "volume": 9765492
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-01-30",
+        "open": 33.18,
+        "high": 34.39,
+        "low": 31.47,
+        "close": 33.18,
+        "volume": 6215916
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-02",
+        "open": 33.66,
+        "high": 35.26,
+        "low": 32.6,
+        "close": 33.66,
+        "volume": 8883947
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-03",
+        "open": 34.1,
+        "high": 35.97,
+        "low": 33.01,
+        "close": 34.1,
+        "volume": 5535787
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-04",
+        "open": 33.44,
+        "high": 34.64,
+        "low": 32.44,
+        "close": 33.44,
+        "volume": 7057116
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-05",
+        "open": 33.39,
+        "high": 35.19,
+        "low": 31.76,
+        "close": 33.39,
+        "volume": 6384067
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-06",
+        "open": 34.64,
+        "high": 36.18,
+        "low": 33.12,
+        "close": 34.64,
+        "volume": 7719286
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-09",
+        "open": 33.62,
+        "high": 34.69,
+        "low": 32.22,
+        "close": 33.62,
+        "volume": 6572357
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-10",
+        "open": 33.11,
+        "high": 35.04,
+        "low": 32.05,
+        "close": 33.11,
+        "volume": 9389255
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-11",
+        "open": 33.78,
+        "high": 35.23,
+        "low": 31.94,
+        "close": 33.78,
+        "volume": 7165044
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-12",
+        "open": 35.01,
+        "high": 36.36,
+        "low": 33.08,
+        "close": 35.01,
+        "volume": 5824802
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-13",
+        "open": 34.98,
+        "high": 36.15,
+        "low": 33.24,
+        "close": 34.98,
+        "volume": 7437568
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-16",
+        "open": 33.68,
+        "high": 35.54,
+        "low": 32.58,
+        "close": 33.68,
+        "volume": 8711747
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-17",
+        "open": 33.76,
+        "high": 35.29,
+        "low": 31.9,
+        "close": 33.76,
+        "volume": 8409696
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-18",
+        "open": 34.79,
+        "high": 35.84,
+        "low": 33.19,
+        "close": 34.79,
+        "volume": 9152514
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-19",
+        "open": 34.59,
+        "high": 36.04,
+        "low": 32.61,
+        "close": 34.59,
+        "volume": 7950957
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-20",
+        "open": 33.33,
+        "high": 34.38,
+        "low": 31.55,
+        "close": 33.33,
+        "volume": 5887512
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-23",
+        "open": 35,
+        "high": 36.32,
+        "low": 33.44,
+        "close": 35,
+        "volume": 8041460
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-24",
+        "open": 34.01,
+        "high": 35.24,
+        "low": 32.7,
+        "close": 34.01,
+        "volume": 7455515
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-25",
+        "open": 33.37,
+        "high": 34.77,
+        "low": 31.66,
+        "close": 33.37,
+        "volume": 9884994
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-26",
+        "open": 35.04,
+        "high": 36.25,
+        "low": 33.51,
+        "close": 35.04,
+        "volume": 9619123
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-02-27",
+        "open": 34,
+        "high": 35.04,
+        "low": 32.55,
+        "close": 34,
+        "volume": 6042482
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-02",
+        "open": 34.81,
+        "high": 36.16,
+        "low": 33.33,
+        "close": 34.81,
+        "volume": 7759015
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-03",
+        "open": 34.35,
+        "high": 35.86,
+        "low": 32.54,
+        "close": 34.35,
+        "volume": 6669560
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-04",
+        "open": 33.89,
+        "high": 35.47,
+        "low": 32.54,
+        "close": 33.89,
+        "volume": 7369969
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-05",
+        "open": 35.12,
+        "high": 37.02,
+        "low": 33.85,
+        "close": 35.12,
+        "volume": 5851165
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-06",
+        "open": 34.03,
+        "high": 35.84,
+        "low": 32.21,
+        "close": 34.03,
+        "volume": 5734313
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-09",
+        "open": 34.59,
+        "high": 35.89,
+        "low": 33.15,
+        "close": 34.59,
+        "volume": 7494033
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-10",
+        "open": 35.19,
+        "high": 36.27,
+        "low": 33.51,
+        "close": 35.19,
+        "volume": 8213859
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-11",
+        "open": 34.63,
+        "high": 36.04,
+        "low": 33.1,
+        "close": 34.63,
+        "volume": 6994336
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-12",
+        "open": 34.84,
+        "high": 36.62,
+        "low": 33.47,
+        "close": 34.84,
+        "volume": 5165325
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-13",
+        "open": 35.2,
+        "high": 36.63,
+        "low": 34.08,
+        "close": 35.2,
+        "volume": 6873427
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-16",
+        "open": 33.91,
+        "high": 35.2,
+        "low": 32.12,
+        "close": 33.91,
+        "volume": 5952171
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-17",
+        "open": 34.29,
+        "high": 36.11,
+        "low": 32.77,
+        "close": 34.29,
+        "volume": 6379948
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-18",
+        "open": 34.21,
+        "high": 35.9,
+        "low": 32.99,
+        "close": 34.21,
+        "volume": 7717522
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-19",
+        "open": 35.45,
+        "high": 37.29,
+        "low": 33.92,
+        "close": 35.45,
+        "volume": 6655524
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-20",
+        "open": 34.45,
+        "high": 36.43,
+        "low": 33.07,
+        "close": 34.45,
+        "volume": 8810379
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-23",
+        "open": 34.57,
+        "high": 36.2,
+        "low": 32.77,
+        "close": 34.57,
+        "volume": 8159010
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-24",
+        "open": 34.74,
+        "high": 36.73,
+        "low": 33.39,
+        "close": 34.74,
+        "volume": 7784491
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-25",
+        "open": 34.3,
+        "high": 35.59,
+        "low": 33.12,
+        "close": 34.3,
+        "volume": 9241091
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-26",
+        "open": 34.84,
+        "high": 36.14,
+        "low": 32.96,
+        "close": 34.84,
+        "volume": 6023812
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-27",
+        "open": 33.87,
+        "high": 35.35,
+        "low": 32.23,
+        "close": 33.87,
+        "volume": 5506135
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-30",
+        "open": 35.07,
+        "high": 36.94,
+        "low": 33.08,
+        "close": 35.07,
+        "volume": 9826881
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-03-31",
+        "open": 34.21,
+        "high": 35.8,
+        "low": 33.16,
+        "close": 34.21,
+        "volume": 7666252
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-01",
+        "open": 35.24,
+        "high": 37.17,
+        "low": 33.67,
+        "close": 35.24,
+        "volume": 6505385
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-02",
+        "open": 35.76,
+        "high": 37.35,
+        "low": 33.91,
+        "close": 35.76,
+        "volume": 5751565
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-03",
+        "open": 34.49,
+        "high": 36.43,
+        "low": 32.97,
+        "close": 34.49,
+        "volume": 8872586
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-06",
+        "open": 35.22,
+        "high": 36.79,
+        "low": 33.4,
+        "close": 35.22,
+        "volume": 6572614
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-07",
+        "open": 35.1,
+        "high": 36.75,
+        "low": 33.35,
+        "close": 35.1,
+        "volume": 8753991
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-08",
+        "open": 34.29,
+        "high": 35.87,
+        "low": 32.4,
+        "close": 34.29,
+        "volume": 8129582
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-09",
+        "open": 34.11,
+        "high": 35.87,
+        "low": 32.64,
+        "close": 34.11,
+        "volume": 6578575
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-10",
+        "open": 34.34,
+        "high": 35.47,
+        "low": 33.11,
+        "close": 34.34,
+        "volume": 5656945
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-13",
+        "open": 35.89,
+        "high": 37.03,
+        "low": 34.84,
+        "close": 35.89,
+        "volume": 6315272
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-14",
+        "open": 35.87,
+        "high": 37.47,
+        "low": 34.53,
+        "close": 35.87,
+        "volume": 9967451
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-15",
+        "open": 35.57,
+        "high": 36.93,
+        "low": 34.54,
+        "close": 35.57,
+        "volume": 6446689
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-16",
+        "open": 35.11,
+        "high": 36.49,
+        "low": 33.4,
+        "close": 35.11,
+        "volume": 6185569
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-17",
+        "open": 34.96,
+        "high": 36.53,
+        "low": 33.45,
+        "close": 34.96,
+        "volume": 8384526
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-20",
+        "open": 34.99,
+        "high": 36.76,
+        "low": 33.61,
+        "close": 34.99,
+        "volume": 5425096
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-21",
+        "open": 35.84,
+        "high": 37.67,
+        "low": 34.66,
+        "close": 35.84,
+        "volume": 8551189
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-22",
+        "open": 35.11,
+        "high": 36.29,
+        "low": 33.38,
+        "close": 35.11,
+        "volume": 7658089
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-23",
+        "open": 34.47,
+        "high": 36.29,
+        "low": 33.25,
+        "close": 34.47,
+        "volume": 7790208
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-24",
+        "open": 35.3,
+        "high": 36.9,
+        "low": 33.77,
+        "close": 35.3,
+        "volume": 6420115
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-27",
+        "open": 34.94,
+        "high": 36.26,
+        "low": 33.52,
+        "close": 34.94,
+        "volume": 9399166
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-28",
+        "open": 34.93,
+        "high": 35.93,
+        "low": 33.52,
+        "close": 34.93,
+        "volume": 6023160
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-29",
+        "open": 35.39,
+        "high": 37.04,
+        "low": 34.11,
+        "close": 35.39,
+        "volume": 5465539
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-04-30",
+        "open": 35.98,
+        "high": 37.07,
+        "low": 34.72,
+        "close": 35.98,
+        "volume": 5043146
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-01",
+        "open": 36.09,
+        "high": 37.21,
+        "low": 34.59,
+        "close": 36.09,
+        "volume": 5582984
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-04",
+        "open": 36.15,
+        "high": 37.75,
+        "low": 35.03,
+        "close": 36.15,
+        "volume": 7906822
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-05",
+        "open": 35.26,
+        "high": 36.8,
+        "low": 33.75,
+        "close": 35.26,
+        "volume": 8057389
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-06",
+        "open": 35.07,
+        "high": 36.8,
+        "low": 33.74,
+        "close": 35.07,
+        "volume": 7359012
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-07",
+        "open": 35.75,
+        "high": 36.82,
+        "low": 34.45,
+        "close": 35.75,
+        "volume": 8269900
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-08",
+        "open": 36.02,
+        "high": 37.91,
+        "low": 34.05,
+        "close": 36.02,
+        "volume": 5955349
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-11",
+        "open": 35.62,
+        "high": 37.56,
+        "low": 34.57,
+        "close": 35.62,
+        "volume": 8582644
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-12",
+        "open": 34.61,
+        "high": 36.4,
+        "low": 32.64,
+        "close": 34.61,
+        "volume": 5089172
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-13",
+        "open": 35.49,
+        "high": 36.89,
+        "low": 34.06,
+        "close": 35.49,
+        "volume": 6237046
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-14",
+        "open": 36.05,
+        "high": 37.27,
+        "low": 34.89,
+        "close": 36.05,
+        "volume": 7469611
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-15",
+        "open": 36.32,
+        "high": 37.62,
+        "low": 35.25,
+        "close": 36.32,
+        "volume": 9361145
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-18",
+        "open": 35.41,
+        "high": 36.97,
+        "low": 34.4,
+        "close": 35.41,
+        "volume": 8892483
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-19",
+        "open": 35.32,
+        "high": 36.44,
+        "low": 34.28,
+        "close": 35.32,
+        "volume": 8494661
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-20",
+        "open": 36.38,
+        "high": 38.36,
+        "low": 34.99,
+        "close": 36.38,
+        "volume": 6180484
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-21",
+        "open": 35.47,
+        "high": 37.38,
+        "low": 34.24,
+        "close": 35.47,
+        "volume": 6605871
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-22",
+        "open": 35.5,
+        "high": 36.89,
+        "low": 33.84,
+        "close": 35.5,
+        "volume": 7970487
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-25",
+        "open": 35.44,
+        "high": 36.67,
+        "low": 34,
+        "close": 35.44,
+        "volume": 6742613
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-26",
+        "open": 34.8,
+        "high": 36.53,
+        "low": 33.62,
+        "close": 34.8,
+        "volume": 5860524
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-27",
+        "open": 35.45,
+        "high": 36.96,
+        "low": 33.65,
+        "close": 35.45,
+        "volume": 7866431
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-28",
+        "open": 35.29,
+        "high": 36.85,
+        "low": 33.75,
+        "close": 35.29,
+        "volume": 6736344
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-05-29",
+        "open": 35.42,
+        "high": 36.68,
+        "low": 33.78,
+        "close": 35.42,
+        "volume": 7336622
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-01",
+        "open": 36.59,
+        "high": 37.96,
+        "low": 35.28,
+        "close": 36.59,
+        "volume": 9308108
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-02",
+        "open": 34.79,
+        "high": 36.36,
+        "low": 33.22,
+        "close": 34.79,
+        "volume": 5604250
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-03",
+        "open": 35.12,
+        "high": 36.62,
+        "low": 34.12,
+        "close": 35.12,
+        "volume": 6937190
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-04",
+        "open": 36.25,
+        "high": 37.81,
+        "low": 35.12,
+        "close": 36.25,
+        "volume": 6790482
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-05",
+        "open": 35.67,
+        "high": 37.03,
+        "low": 33.82,
+        "close": 35.67,
+        "volume": 9536658
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-08",
+        "open": 35.08,
+        "high": 36.08,
+        "low": 33.31,
+        "close": 35.08,
+        "volume": 8185552
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-09",
+        "open": 36.06,
+        "high": 37.48,
+        "low": 34.24,
+        "close": 36.06,
+        "volume": 8738965
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-10",
+        "open": 35,
+        "high": 36.05,
+        "low": 33.42,
+        "close": 35,
+        "volume": 6209517
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-11",
+        "open": 35.15,
+        "high": 36.65,
+        "low": 33.95,
+        "close": 35.15,
+        "volume": 6041664
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-12",
+        "open": 35.49,
+        "high": 36.74,
+        "low": 34.45,
+        "close": 35.49,
+        "volume": 5912611
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-15",
+        "open": 35.49,
+        "high": 37.25,
+        "low": 34.39,
+        "close": 35.49,
+        "volume": 9294852
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-16",
+        "open": 36.08,
+        "high": 38.04,
+        "low": 34.59,
+        "close": 36.08,
+        "volume": 6038083
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-17",
+        "open": 36.41,
+        "high": 37.63,
+        "low": 34.44,
+        "close": 36.41,
+        "volume": 7066013
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-18",
+        "open": 36.53,
+        "high": 37.89,
+        "low": 35.31,
+        "close": 36.53,
+        "volume": 8494111
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-19",
+        "open": 35.56,
+        "high": 37.53,
+        "low": 34.39,
+        "close": 35.56,
+        "volume": 8272974
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-22",
+        "open": 35.55,
+        "high": 37.37,
+        "low": 33.88,
+        "close": 35.55,
+        "volume": 6915838
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-23",
+        "open": 36.68,
+        "high": 38.21,
+        "low": 35.13,
+        "close": 36.68,
+        "volume": 6072553
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-24",
+        "open": 36.48,
+        "high": 38.11,
+        "low": 35.04,
+        "close": 36.48,
+        "volume": 9264894
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-25",
+        "open": 36.15,
+        "high": 37.71,
+        "low": 34.8,
+        "close": 36.15,
+        "volume": 6562064
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-26",
+        "open": 36.85,
+        "high": 38.01,
+        "low": 35.57,
+        "close": 36.85,
+        "volume": 5688082
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-29",
+        "open": 35.44,
+        "high": 36.58,
+        "low": 33.56,
+        "close": 35.44,
+        "volume": 8037969
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-06-30",
+        "open": 36.14,
+        "high": 37.77,
+        "low": 35.07,
+        "close": 36.14,
+        "volume": 5106825
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-01",
+        "open": 36.59,
+        "high": 38.25,
+        "low": 34.77,
+        "close": 36.59,
+        "volume": 8725497
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-02",
+        "open": 35.28,
+        "high": 36.45,
+        "low": 34.27,
+        "close": 35.28,
+        "volume": 8098271
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-03",
+        "open": 36.97,
+        "high": 38.84,
+        "low": 35.17,
+        "close": 36.97,
+        "volume": 7367317
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-06",
+        "open": 36.56,
+        "high": 37.68,
+        "low": 34.8,
+        "close": 36.56,
+        "volume": 5976394
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-07",
+        "open": 35.96,
+        "high": 37.24,
+        "low": 34.35,
+        "close": 35.96,
+        "volume": 6047800
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-08",
+        "open": 35.39,
+        "high": 37.13,
+        "low": 34.23,
+        "close": 35.39,
+        "volume": 6917778
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-09",
+        "open": 35.67,
+        "high": 36.92,
+        "low": 33.7,
+        "close": 35.67,
+        "volume": 9437009
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-10",
+        "open": 35.49,
+        "high": 37.03,
+        "low": 34.23,
+        "close": 35.49,
+        "volume": 5199168
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-13",
+        "open": 35.88,
+        "high": 37.15,
+        "low": 34.09,
+        "close": 35.88,
+        "volume": 9866293
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-14",
+        "open": 35.77,
+        "high": 37.53,
+        "low": 34.61,
+        "close": 35.77,
+        "volume": 7617406
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-15",
+        "open": 37.25,
+        "high": 39.02,
+        "low": 35.25,
+        "close": 37.25,
+        "volume": 9019240
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-16",
+        "open": 36.34,
+        "high": 38.09,
+        "low": 35.01,
+        "close": 36.34,
+        "volume": 8474987
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-17",
+        "open": 36.94,
+        "high": 38.71,
+        "low": 35.03,
+        "close": 36.94,
+        "volume": 7548320
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-20",
+        "open": 37.31,
+        "high": 38.82,
+        "low": 35.9,
+        "close": 37.31,
+        "volume": 8868210
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-21",
+        "open": 36.23,
+        "high": 38.12,
+        "low": 34.63,
+        "close": 36.23,
+        "volume": 5804577
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-22",
+        "open": 36.5,
+        "high": 37.91,
+        "low": 34.96,
+        "close": 36.5,
+        "volume": 5400859
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-23",
+        "open": 37.3,
+        "high": 38.62,
+        "low": 35.74,
+        "close": 37.3,
+        "volume": 7078669
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-24",
+        "open": 36.6,
+        "high": 38.37,
+        "low": 35.03,
+        "close": 36.6,
+        "volume": 7147382
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-27",
+        "open": 36.91,
+        "high": 38.21,
+        "low": 35.8,
+        "close": 36.91,
+        "volume": 5430247
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-28",
+        "open": 35.66,
+        "high": 36.79,
+        "low": 34.44,
+        "close": 35.66,
+        "volume": 8789358
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-29",
+        "open": 35.97,
+        "high": 37.43,
+        "low": 34.06,
+        "close": 35.97,
+        "volume": 9091811
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-30",
+        "open": 36.72,
+        "high": 38.68,
+        "low": 35.55,
+        "close": 36.72,
+        "volume": 7115661
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-07-31",
+        "open": 36.3,
+        "high": 37.48,
+        "low": 35.03,
+        "close": 36.3,
+        "volume": 7893757
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-03",
+        "open": 35.79,
+        "high": 36.95,
+        "low": 34,
+        "close": 35.79,
+        "volume": 9182132
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-04",
+        "open": 36.03,
+        "high": 37.66,
+        "low": 34.17,
+        "close": 36.03,
+        "volume": 8425556
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-05",
+        "open": 36.36,
+        "high": 38,
+        "low": 34.91,
+        "close": 36.36,
+        "volume": 5011082
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-06",
+        "open": 37.26,
+        "high": 38.9,
+        "low": 35.92,
+        "close": 37.26,
+        "volume": 6032132
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-07",
+        "open": 35.7,
+        "high": 36.95,
+        "low": 34.16,
+        "close": 35.7,
+        "volume": 8615038
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-10",
+        "open": 37,
+        "high": 38.76,
+        "low": 35.92,
+        "close": 37,
+        "volume": 9634160
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-11",
+        "open": 36.52,
+        "high": 37.67,
+        "low": 34.63,
+        "close": 36.52,
+        "volume": 9084724
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-12",
+        "open": 36.85,
+        "high": 38.51,
+        "low": 35.13,
+        "close": 36.85,
+        "volume": 6527734
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-13",
+        "open": 36.88,
+        "high": 38.32,
+        "low": 35.29,
+        "close": 36.88,
+        "volume": 6376555
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-14",
+        "open": 37.61,
+        "high": 38.77,
+        "low": 36.33,
+        "close": 37.61,
+        "volume": 7650046
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-17",
+        "open": 35.81,
+        "high": 37.41,
+        "low": 34.27,
+        "close": 35.81,
+        "volume": 6631244
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-18",
+        "open": 35.88,
+        "high": 37.06,
+        "low": 33.96,
+        "close": 35.88,
+        "volume": 7521033
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-19",
+        "open": 37.59,
+        "high": 38.79,
+        "low": 35.67,
+        "close": 37.59,
+        "volume": 5440883
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-20",
+        "open": 37.31,
+        "high": 38.52,
+        "low": 35.73,
+        "close": 37.31,
+        "volume": 5732350
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-21",
+        "open": 37.05,
+        "high": 38.28,
+        "low": 35.57,
+        "close": 37.05,
+        "volume": 8854210
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-24",
+        "open": 37.48,
+        "high": 38.99,
+        "low": 36.36,
+        "close": 37.48,
+        "volume": 8753134
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-25",
+        "open": 37.06,
+        "high": 38.47,
+        "low": 35.97,
+        "close": 37.06,
+        "volume": 5857844
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-26",
+        "open": 37.43,
+        "high": 38.64,
+        "low": 35.99,
+        "close": 37.43,
+        "volume": 5576777
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-27",
+        "open": 35.96,
+        "high": 37.05,
+        "low": 34.76,
+        "close": 35.96,
+        "volume": 6268192
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-28",
+        "open": 37.91,
+        "high": 39.26,
+        "low": 36.18,
+        "close": 37.91,
+        "volume": 5125082
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-08-31",
+        "open": 37.2,
+        "high": 38.76,
+        "low": 35.68,
+        "close": 37.2,
+        "volume": 8251650
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-01",
+        "open": 37.63,
+        "high": 38.82,
+        "low": 36.58,
+        "close": 37.63,
+        "volume": 5679931
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-02",
+        "open": 37.97,
+        "high": 39.47,
+        "low": 36.07,
+        "close": 37.97,
+        "volume": 6618148
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-03",
+        "open": 36.15,
+        "high": 37.66,
+        "low": 34.27,
+        "close": 36.15,
+        "volume": 9457212
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-04",
+        "open": 36.2,
+        "high": 37.4,
+        "low": 34.54,
+        "close": 36.2,
+        "volume": 6391265
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-07",
+        "open": 36.49,
+        "high": 38.08,
+        "low": 35.18,
+        "close": 36.49,
+        "volume": 8604840
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-08",
+        "open": 37.74,
+        "high": 38.77,
+        "low": 36.4,
+        "close": 37.74,
+        "volume": 8263449
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-09",
+        "open": 36.78,
+        "high": 38.67,
+        "low": 34.86,
+        "close": 36.78,
+        "volume": 5259028
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-10",
+        "open": 37.05,
+        "high": 38.17,
+        "low": 35.12,
+        "close": 37.05,
+        "volume": 5036463
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-11",
+        "open": 36.26,
+        "high": 37.58,
+        "low": 35.02,
+        "close": 36.26,
+        "volume": 7692159
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-14",
+        "open": 37.4,
+        "high": 38.98,
+        "low": 35.63,
+        "close": 37.4,
+        "volume": 8799419
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-15",
+        "open": 36.63,
+        "high": 38.58,
+        "low": 35.51,
+        "close": 36.63,
+        "volume": 9503941
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-16",
+        "open": 37.91,
+        "high": 39.87,
+        "low": 36.37,
+        "close": 37.91,
+        "volume": 5564381
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-17",
+        "open": 38.17,
+        "high": 39.72,
+        "low": 36.98,
+        "close": 38.17,
+        "volume": 8734024
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-18",
+        "open": 38.2,
+        "high": 39.45,
+        "low": 36.81,
+        "close": 38.2,
+        "volume": 7052372
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-21",
+        "open": 37.24,
+        "high": 38.62,
+        "low": 35.9,
+        "close": 37.24,
+        "volume": 7492595
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-22",
+        "open": 38.19,
+        "high": 40.08,
+        "low": 37.18,
+        "close": 38.19,
+        "volume": 8701218
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-23",
+        "open": 37.77,
+        "high": 39.43,
+        "low": 36.72,
+        "close": 37.77,
+        "volume": 7617930
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-24",
+        "open": 38.09,
+        "high": 39.89,
+        "low": 36.42,
+        "close": 38.09,
+        "volume": 7950255
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-25",
+        "open": 36.83,
+        "high": 38.49,
+        "low": 35.37,
+        "close": 36.83,
+        "volume": 5214119
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-28",
+        "open": 36.35,
+        "high": 37.36,
+        "low": 34.44,
+        "close": 36.35,
+        "volume": 8987428
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-29",
+        "open": 36.76,
+        "high": 37.76,
+        "low": 35.06,
+        "close": 36.76,
+        "volume": 9382034
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-09-30",
+        "open": 37.22,
+        "high": 38.64,
+        "low": 36.18,
+        "close": 37.22,
+        "volume": 8936701
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-01",
+        "open": 36.48,
+        "high": 38.17,
+        "low": 35.31,
+        "close": 36.48,
+        "volume": 5045134
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-02",
+        "open": 37.62,
+        "high": 38.79,
+        "low": 36.36,
+        "close": 37.62,
+        "volume": 9124849
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-05",
+        "open": 37.32,
+        "high": 39.14,
+        "low": 35.5,
+        "close": 37.32,
+        "volume": 5440298
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-06",
+        "open": 38.39,
+        "high": 39.99,
+        "low": 36.45,
+        "close": 38.39,
+        "volume": 6743529
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-07",
+        "open": 38.04,
+        "high": 39.95,
+        "low": 36.53,
+        "close": 38.04,
+        "volume": 5339356
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-08",
+        "open": 38.25,
+        "high": 39.3,
+        "low": 37.24,
+        "close": 38.25,
+        "volume": 9252517
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-09",
+        "open": 37.07,
+        "high": 38.1,
+        "low": 35.3,
+        "close": 37.07,
+        "volume": 5376808
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-12",
+        "open": 38.35,
+        "high": 39.76,
+        "low": 37.11,
+        "close": 38.35,
+        "volume": 9737545
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-13",
+        "open": 36.72,
+        "high": 37.95,
+        "low": 35.5,
+        "close": 36.72,
+        "volume": 6572461
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-14",
+        "open": 38.22,
+        "high": 40.02,
+        "low": 37.14,
+        "close": 38.22,
+        "volume": 8706495
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-15",
+        "open": 36.71,
+        "high": 38.5,
+        "low": 35.44,
+        "close": 36.71,
+        "volume": 9312621
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-16",
+        "open": 38.33,
+        "high": 39.94,
+        "low": 36.5,
+        "close": 38.33,
+        "volume": 5388803
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-19",
+        "open": 38.62,
+        "high": 40.31,
+        "low": 36.94,
+        "close": 38.62,
+        "volume": 8163284
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-20",
+        "open": 38.25,
+        "high": 39.34,
+        "low": 36.55,
+        "close": 38.25,
+        "volume": 8663983
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-21",
+        "open": 37.56,
+        "high": 38.62,
+        "low": 35.75,
+        "close": 37.56,
+        "volume": 7645386
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-22",
+        "open": 38.49,
+        "high": 40.4,
+        "low": 36.49,
+        "close": 38.49,
+        "volume": 7660871
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-23",
+        "open": 37.33,
+        "high": 39.06,
+        "low": 35.69,
+        "close": 37.33,
+        "volume": 6317699
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-26",
+        "open": 36.93,
+        "high": 38.09,
+        "low": 35.01,
+        "close": 36.93,
+        "volume": 8333075
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-27",
+        "open": 37.91,
+        "high": 39.77,
+        "low": 36.36,
+        "close": 37.91,
+        "volume": 9487437
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-28",
+        "open": 37.71,
+        "high": 39.65,
+        "low": 36.24,
+        "close": 37.71,
+        "volume": 9192839
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-29",
+        "open": 37.12,
+        "high": 38.13,
+        "low": 35.99,
+        "close": 37.12,
+        "volume": 8335442
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-10-30",
+        "open": 37.27,
+        "high": 38.98,
+        "low": 35.78,
+        "close": 37.27,
+        "volume": 9065078
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-11-02",
+        "open": 38.69,
+        "high": 39.8,
+        "low": 37.57,
+        "close": 38.69,
+        "volume": 9332545
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-11-03",
+        "open": 37.66,
+        "high": 38.67,
+        "low": 36.65,
+        "close": 37.66,
+        "volume": 7741136
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-11-04",
+        "open": 36.93,
+        "high": 38.15,
+        "low": 35.88,
+        "close": 36.93,
+        "volume": 7634882
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-11-05",
+        "open": 37.41,
+        "high": 39.4,
+        "low": 36.24,
+        "close": 37.41,
+        "volume": 9234957
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-11-06",
+        "open": 38.57,
+        "high": 40.11,
+        "low": 37.16,
+        "close": 38.57,
+        "volume": 6409037
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-11-09",
+        "open": 37.65,
+        "high": 39.22,
+        "low": 36.11,
+        "close": 37.65,
+        "volume": 5443667
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-11-10",
+        "open": 38.12,
+        "high": 39.4,
+        "low": 36.62,
+        "close": 38.12,
+        "volume": 9777454
+      },
+      {
+        "symbol": "000008.SZ",
+        "tradeDate": "2026-11-11",
+        "open": 37.93,
+        "high": 39.24,
+        "low": 36.72,
+        "close": 37.93,
+        "volume": 8285411
+      }
+    ]
+  },
+  "expected": {
+    "action": "HOLD"
+  },
+  "forbidden_outputs": [
+    "EXCLUDE",
+    "DATA_INSUFFICIENT"
+  ],
+  "required_evidence": [
+    "daily_bar.close"
+  ]
 }

@@ -7,6 +7,9 @@ const { BudgetPolicy } = require('../../../harness/src/budget/budget-policy');
 const { checkPreModelRiskGate } = require('../../../harness/src/pre-model-risk-gate.cjs');
 const { checkDataQuality, DQ_STATUS } = require('../../../harness/src/data-quality-gate.cjs');
 const { DECISION_SOURCE, buildDecision } = require('../../../harness/src/decision-source.cjs');
+const { computeConfidence } = require('../../../data/src/reliability/confidence-calculator.cjs');
+const { detectRegime } = require('../../../data/src/reliability/market-regime.cjs');
+const { computeReliabilityScore } = require('../../../data/src/reliability/reliability-scorer.cjs');
 
 const DEFAULT_INPUT = {
   portfolioCsv: path.resolve('data/samples/portfolio.sample.csv'),
@@ -15,12 +18,17 @@ const DEFAULT_INPUT = {
 };
 
 class MonthlyHoldReviewRunner {
-  constructor({ toolRegistry, budget, trace, gateway } = {}) {
+  constructor({ toolRegistry, budget, trace, gateway, dataProvider } = {}) {
     this.tools = toolRegistry || new ToolRegistry();
     this.budget = budget || new BudgetPolicy();
     this.trace = trace;
     this.gateway = gateway;
-    this.toolCtx = { requestId: 'monthly-review', asOfDate: DEFAULT_INPUT.asOfDate };
+    this.dataProvider = dataProvider;
+    this.toolCtx = {
+      requestId: 'monthly-review',
+      asOfDate: DEFAULT_INPUT.asOfDate,
+      dataProvider,   // V1.1: inject for tools
+    };
   }
 
   async run(overrides = {}) {
@@ -46,7 +54,32 @@ class MonthlyHoldReviewRunner {
     this._trace('tool_call', { callId: 'tool-02', toolName: 'get_kline_250d' });
     const symbols = holdings.map(h => h.symbol);
     const klineR = await this.tools.call('get_kline_250d', { symbols, csvPath: input.klineCsv }, this.toolCtx);
-    if (!klineR.ok) return { ok: false, error: klineR.error, step: 'get_kline_250d' };
+    if (!klineR.ok) {
+      // V1.1: Provider fallback — 安全降级，不终止任务
+      if (klineR.error?.code === 'PROVIDER_FALLBACK') {
+        this._trace('data_provider_fallback', { reason: klineR.error.message });
+        // 所有股票标记为 DATA_INSUFFICIENT，继续生成报告
+        const fbDecisions = holdings.map(h => buildDecision({
+          symbol: h.symbol, action: 'DATA_INSUFFICIENT', confidence: 0.3,
+          summary: `[${h.symbol}] 数据源不可用，安全降级`,
+          evidence: [], risks: [],
+          decisionSource: DECISION_SOURCE.DATA_INSUFFICIENT_GATE,
+          modelCalled: false, hardRuleOverride: true,
+          evidenceIds: [],
+        }));
+        return {
+          ok: true,
+          data: {
+            asOfDate, decisions: fbDecisions,
+            reportPath: null, logIds: [],
+            budgetStats: this.budget.getStats(),
+            traceStats: { traceEvents: traceEventCount, toolExecutions: toolExecCount, toolTraceEvents: toolExecCount + traceEventCount, modelCalls: 0, modelSkips: holdings.length },
+            totalTokens: 0, budgetExceeded: false,
+          },
+        };
+      }
+      return { ok: false, error: klineR.error, step: 'get_kline_250d' };
+    }
     const barsMap = klineR.data.bars;
     this._onToolCall(toolExecCount++, traceEventCount++);
 
@@ -122,6 +155,27 @@ class MonthlyHoldReviewRunner {
         this._trace('model_skipped', { symbol, reason: `data_quality: ${dqResult.status}` });
         continue;
       }
+
+      // ===== V1.2: Inject Data Reliability context =====
+      const providerName = this.dataProvider ? this.dataProvider.getProviderName() : 'mock';
+      const dataSource = providerName === 'LiveDataProvider' ? 'live' : 'mock';
+      const staleness = dqResult.status === 'PASS' ? 'fresh' : dqResult.status === 'WARN' ? 'stale_warn' : 'stale_fail';
+
+      const regime = detectRegime(bars);
+      const confidence = computeConfidence({
+        symbol, source: dataSource, klines: bars,
+        staleness, fallbackUsed: false, rateLimited: false,
+      });
+      const reliabilityScore = computeReliabilityScore(confidence, dqResult, regime);
+
+      this.toolCtx.dataQuality = {
+        confidence: confidence.dataConfidence,
+        qualityLevel: confidence.qualityLevel,
+        regime: regime.regime,
+        volatility: regime.volatility,
+        staleLevel: staleness,
+        reliabilityScore,
+      };
 
       // ===== pre_model_risk_gate: 正常，允许模型 =====
       // 5. build_evidence_list

@@ -1,0 +1,286 @@
+$ git add -A 2>&1 && git commit -m "V0.4-data: DuckDB data layer + data_quality_gate
+
+- init_duckdb.sql with 6 tables (portfolio, stock_basic, kline_daily, risk_flags, decision_log, data_quality_log)
+- DuckDBClient with JSON fallback (no DuckDB CLI required)
+- 6 Repositories (StockBasic, Portfolio, Kline, RiskFlag, DecisionLog, DataQuality)
+- data_quality_gate: 5 rules (kline_count, close>0, no_dup_dates, freshness, volume_streak)
+- fetch-sample-market-data.js: 8 target stocks, mock/real dual mode
+- 2 new eval cases (data-quality-fail, stale-market-data)
+- pre_model_risk_gate → data_quality_gate → model ordering
+- Unified traceStats (traceEvents, toolExecutions, toolTraceEvents, modelCalls, modelSkips)
+- LLM mode semantics: deepseek=strict, auto=fallback, mock=forced
+- eval types split: eval:monthly (HarnessRunner), eval:monthly:unit (SkillRunner)
+- DecisionSource: model_only banned for investment decisions
+- 11/11 eval cases passing" 2>&1
+[exit 0]
+warning: in the working copy of 'data/traces/monthly_hold_review_2026-06.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evals/cases/monthly-hold-review/high-valuation-case.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evals/cases/monthly-hold-review/normal-quality-holding-case.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/harness/src/registries/tool-registry.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/harness/src/runner/harness-runner.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/skills/src/monthly-hold-review/skill-runner.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/demo-monthly-review.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/eval-monthly.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/eval-tools.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/init_duckdb.sql', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'data/duckdb/json-fallback/kline_daily.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'data/duckdb/json-fallback/stock_basic.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evals/cases/monthly-hold-review/data-quality-fail-case.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evals/cases/monthly-hold-review/llm-forbidden-words-case.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evals/cases/monthly-hold-review/llm-illegal-hold-for-st-case.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evals/cases/monthly-hold-review/llm-invalid-decision-enum-case.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evals/cases/monthly-hold-review/llm-missing-evidence-case.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evals/cases/monthly-hold-review/stale-market-data-case.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.ST-1781687815785-8t9q.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.ST-1781688168072-hxo3.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.ST-1781688396153-vu1d.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.ST-1781688432325-tcwf.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.ST-1781688446990-japl.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781687743826-2h0c.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781687763407-vjcg.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781687771971-j1jg.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781687819592-clup.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688167669-pli7.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688167867-6jnf.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688181305-b1xv.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688352771-us5q.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688357732-whpa.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688386320-4yfu.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688386519-dait.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688395946-8cg5.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688432130-iz78.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688446520-07ji.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000001.SZ-1781688446738-n446.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781687743827-3kly.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781687763408-o34i.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781687771972-bvo0.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781687815759-bqjd.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781687819593-1dss.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688167670-m4jk.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688167868-q9l4.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688168046-pgyz.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688181306-urzr.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688352772-13i3.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688357734-dckw.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688386321-885b.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688386520-6qq4.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688395947-ia0z.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688396126-z18j.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688432131-6izu.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688432298-12s4.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688446521-bumf.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688446740-d6l4.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000002.SZ-1781688446953-x3nz.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781687743828-wh46.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781687763409-v0i7.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781687771973-7yxg.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781687815761-ygkb.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781687819594-wfg7.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688167671-bwb2.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688167869-fldk.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688168049-ws99.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688181307-pv1i.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688352773-e88u.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688357735-lqdx.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688386322-wt04.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688386521-yct4.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688395948-cgb3.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688396139-aytz.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688432132-eg72.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688432312-8kah.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688446522-7jh2.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688446741-g9oc.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000003.SZ-1781688446968-7c4j.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000004.SZ-1781687815783-dnkr.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000004.SZ-1781688168071-15eq.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000004.SZ-1781688396152-16uh.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000004.SZ-1781688432323-peu2.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000004.SZ-1781688446988-vmw8.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000005.ST-1781687815774-4t1n.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000005.ST-1781688168062-f4m3.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000005.ST-1781688396144-yg94.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000005.ST-1781688432316-9oge.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000005.ST-1781688446974-8fiu.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000006.SZ-1781687815778-biik.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000006.SZ-1781688168067-d52d.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000006.SZ-1781688396148-j49x.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000006.SZ-1781688432320-gkn2.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000006.SZ-1781688446981-a7uz.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000007.SZ-1781687815772-g88m.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000007.SZ-1781688168059-v4nl.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000007.SZ-1781688396142-fm9v.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000007.SZ-1781688432314-1cag.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000007.SZ-1781688446972-bh82.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000008.SZ-1781687815776-zv5c.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000008.SZ-1781688168065-h46l.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000008.SZ-1781688396146-54hd.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000008.SZ-1781688432318-h3vr.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000008.SZ-1781688446978-owcy.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000009.SZ-1781688396137-k1hg.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000009.SZ-1781688432308-q71p.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000009.SZ-1781688446964-33qa.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000010.SZ-1781688396155-jd1f.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000010.SZ-1781688432327-4vnk.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-000010.SZ-1781688446992-x77e.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781687743828-bl3w.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781687763409-tzx0.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781687771973-yhym.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781687819594-evhy.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688167672-1dii.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688167869-axmn.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688181307-6vfn.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688352773-eiak.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688357736-bt24.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688386323-y1vi.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688386521-t5uo.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688395949-udge.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688432133-dpr7.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688446522-ylhe.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-0700.HK-1781688446742-oyvy.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781687743829-50mq.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781687763410-fsqj.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781687771974-lyct.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781687819595-nh1x.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688167673-audr.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688167870-lpok.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688181308-5gky.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688352774-fxay.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688357737-66ty.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688386323-d4jz.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688386522-fteo.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688395949-84lc.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688432134-pmhs.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688446523-me51.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-9988.HK-1781688446742-0umc.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-999999.XZ-1781687815781-5jvk.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-999999.XZ-1781688168069-fjym.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-999999.XZ-1781688396150-fhmd.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-999999.XZ-1781688432321-1hln.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'memory/decision-log/log-999999.XZ-1781688446985-8k5v.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/data/src/duckdb-client.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/data/src/v0.4-repositories.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/harness/src/data-quality-gate.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/harness/src/decision-source.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/harness/src/llm-config.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/harness/src/pre-model-risk-gate.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/tools/src/tools/build-evidence-list.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/tools/src/tools/calculate-250d-performance.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/tools/src/tools/check-risk-flags.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/tools/src/tools/generate-monthly-report.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/tools/src/tools/get-kline-250d.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/tools/src/tools/get-portfolio.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/tools/src/tools/model-analyze-stock.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/tools/src/tools/risk-judge.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'packages/tools/src/tools/write-decision-log.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/eval-monthly-unit.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/fetch-sample-market-data.js', LF will be replaced by CRLF the next time Git touches it
+[master d52dbc8] V0.4-data: DuckDB data layer + data_quality_gate
+ 167 files changed, 11122 insertions(+), 1219 deletions(-)
+ create mode 100644 data/duckdb/json-fallback/data_quality_log.json
+ create mode 100644 data/duckdb/json-fallback/decision_log.json
+ create mode 100644 data/duckdb/json-fallback/kline_daily.json
+ create mode 100644 data/duckdb/json-fallback/portfolio.json
+ create mode 100644 data/duckdb/json-fallback/risk_flags.json
+ create mode 100644 data/duckdb/json-fallback/stock_basic.json
+ create mode 100644 evals/cases/monthly-hold-review/data-quality-fail-case.json
+ create mode 100644 evals/cases/monthly-hold-review/llm-forbidden-words-case.json
+ create mode 100644 evals/cases/monthly-hold-review/llm-illegal-hold-for-st-case.json
+ create mode 100644 evals/cases/monthly-hold-review/llm-invalid-decision-enum-case.json
+ create mode 100644 evals/cases/monthly-hold-review/llm-missing-evidence-case.json
+ create mode 100644 evals/cases/monthly-hold-review/stale-market-data-case.json
+ create mode 100644 memory/decision-log/log-000001.ST-1781687815785-8t9q.json
+ create mode 100644 memory/decision-log/log-000001.ST-1781688168072-hxo3.json
+ create mode 100644 memory/decision-log/log-000001.ST-1781688396153-vu1d.json
+ create mode 100644 memory/decision-log/log-000001.ST-1781688432325-tcwf.json
+ create mode 100644 memory/decision-log/log-000001.ST-1781688446990-japl.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781687743826-2h0c.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781687763407-vjcg.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781687771971-j1jg.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781687819592-clup.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688167669-pli7.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688167867-6jnf.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688181305-b1xv.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688352771-us5q.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688357732-whpa.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688386320-4yfu.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688386519-dait.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688395946-8cg5.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688432130-iz78.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688446520-07ji.json
+ create mode 100644 memory/decision-log/log-000001.SZ-1781688446738-n446.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781687743827-3kly.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781687763408-o34i.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781687771972-bvo0.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781687815759-bqjd.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781687819593-1dss.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688167670-m4jk.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688167868-q9l4.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688168046-pgyz.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688181306-urzr.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688352772-13i3.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688357734-dckw.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688386321-885b.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688386520-6qq4.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688395947-ia0z.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688396126-z18j.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688432131-6izu.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688432298-12s4.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688446521-bumf.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688446740-d6l4.json
+ create mode 100644 memory/decision-log/log-000002.SZ-1781688446953-x3nz.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781687743828-wh46.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781687763409-v0i7.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781687771973-7yxg.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781687815761-ygkb.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781687819594-wfg7.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688167671-bwb2.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688167869-fldk.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688168049-ws99.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688181307-pv1i.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688352773-e88u.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688357735-lqdx.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688386322-wt04.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688386521-yct4.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688395948-cgb3.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688396139-aytz.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688432132-eg72.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688432312-8kah.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688446522-7jh2.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688446741-g9oc.json
+ create mode 100644 memory/decision-log/log-000003.SZ-1781688446968-7c4j.json
+ create mode 100644 memory/decision-log/log-000004.SZ-1781687815783-dnkr.json
+ create mode 100644 memory/decision-log/log-000004.SZ-1781688168071-15eq.json
+ create mode 100644 memory/decision-log/log-000004.SZ-1781688396152-16uh.json
+ create mode 100644 memory/decision-log/log-000004.SZ-1781688432323-peu2.json
+ create mode 100644 memory/decision-log/log-000004.SZ-1781688446988-vmw8.json
+ create mode 100644 memory/decision-log/log-000005.ST-1781687815774-4t1n.json
+ create mode 100644 memory/decision-log/log-000005.ST-1781688168062-f4m3.json
+ create mode 100644 memory/decision-log/log-000005.ST-1781688396144-yg94.json
+ create mode 100644 memory/decision-log/log-000005.ST-1781688432316-9oge.json
+ create mode 100644 memory/decision-log/log-000005.ST-1781688446974-8fiu.json
+ create mode 100644 memory/decision-log/log-000006.SZ-1781687815778-biik.json
+ create mode 100644 memory/decision-log/log-000006.SZ-1781688168067-d52d.json
+ create mode 100644 memory/decision-log/log-000006.SZ-1781688396148-j49x.json
+ create mode 100644 memory/decision-log/log-000006.SZ-1781688432320-gkn2.json
+ create mode 100644 memory/decision-log/log-000006.SZ-1781688446981-a7uz.json
+ create mode 100644 memory/decision-log/log-000007.SZ-1781687815772-g88m.json
+ create mode 100644 memory/decision-log/log-000007.SZ-1781688168059-v4nl.json
+ create mode 100644 memory/decision-log/log-000007.SZ-1781688396142-fm9v.json
+ create mode 100644 memory/decision-log/log-000007.SZ-1781688432314-1cag.json
+ create mode 100644 memory/decision-log/log-000007.SZ-1781688446972-bh82.json
+ create mode 100644 memory/decision-log/log-000008.SZ-1781687815776-zv5c.json
+ create mode 100644 memory/decision-log/log-000008.SZ-1781688168065-h46l.json
+ create mode 100644 memory/decision-log/log-000008.SZ-1781688396146-54hd.json
+ create mode 100644 memory/decision-log/log-000008.SZ-1781688432318-h3vr.json
+ create mode 100644 memory/decision-log/log-000008.SZ-1781688446978-owcy.json
+ create mode 100644 memory/decision-log/log-000009.SZ-1781688396137-k1hg.json
+ create mode 100644 memory/decision-log/log-000009.SZ-1781688432308-q71p.json
+ create mode 100644 memory/decision-log/log-000009.SZ-1781688446964-33qa.json
+ create mode 100644 memory/decision-log/log-000010.SZ-1781688396155-jd1f.json
+ create mode 100644 memory/decision-log/log-000010.SZ-1781688432327-4vnk.json
+ create mode 100644 memory/decision-log/log-000010.SZ-1781688446992-x77e.json
+ create mode 100644 memory/decision-log/log-0700.HK-1781687743828-bl3w.json
+ create mode 100644 memory/decision-l
+
+[… truncated 3693 chars …]

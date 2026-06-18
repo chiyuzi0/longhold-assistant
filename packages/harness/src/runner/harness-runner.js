@@ -5,6 +5,7 @@ const { ToolRegistry } = require('../registries/tool-registry');
 const { BudgetPolicy } = require('../budget/budget-policy');
 const { MonthlyHoldReviewRunner } = require('../../../skills/src/monthly-hold-review/skill-runner.cjs');
 const { loadLLMConfig } = require('../llm-config.cjs');
+const { createMarketDataProvider } = require('../../../data/src/providers/provider-factory.cjs');
 
 // ===== Trace Recorder =====
 class HarnessTraceRecorder {
@@ -66,8 +67,13 @@ class HarnessRunner {
     this.toolRegistry = new ToolRegistry();
     this.budget = new BudgetPolicy(config.budget);
     this.llmConfig = loadLLMConfig();
+    this.dataProvider = createMarketDataProvider(config?.data);
     this.fs = require('fs');
     this.path = require('path');
+  }
+
+  getProviderLabel() {
+    return this.dataProvider.getProviderName();
   }
 
   getGatewayLabel() {
@@ -81,7 +87,7 @@ class HarnessRunner {
       trace.recordEvent('config_warning', { message: this.llmConfig.error });
     }
 
-    // 构建 gateway 对象（向后兼容 tool-registry 的 model_analyze_stock）
+    // 构建 gateway 对象
     const gateway = this.llmConfig.hasDeepSeek
       ? { hasDeepSeek: true, config: this.llmConfig.config, llmStrategy: this.llmConfig.strategy }
       : { hasDeepSeek: false, config: null, llmStrategy: this.llmConfig.strategy };
@@ -91,6 +97,7 @@ class HarnessRunner {
       budget: this.budget,
       trace,
       gateway,
+      dataProvider: this.dataProvider,   // V1.1
     });
 
     trace.recordEvent('skill_selected', { skillId: 'monthly-hold-review' });
@@ -104,6 +111,21 @@ class HarnessRunner {
         }
       }
     }
+    // V1.2: trace reliability info
+    if (result.ok && result.data) {
+      const firstDq = result.data.decisions.find(d => d.dataQuality);
+      if (firstDq && firstDq.dataQuality) {
+        traceObj.dataReliability = {
+          confidence: firstDq.dataQuality.confidence,
+          qualityLevel: firstDq.dataQuality.qualityLevel,
+          regime: firstDq.dataQuality.regime,
+          staleLevel: firstDq.dataQuality.staleLevel,
+          reliabilityScore: firstDq.dataQuality.reliabilityScore,
+          dataSource: result.data.dataSource || 'mock',
+        };
+      }
+    }
+
     trace.recordEvent('task_finished', { ok: result.ok });
 
     const traceObj = trace.toJSON();

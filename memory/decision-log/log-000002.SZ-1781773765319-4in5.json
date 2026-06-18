@@ -1,0 +1,16 @@
+{
+  "logId": "log-000002.SZ-1781773765319-4in5",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "000002.SZ",
+  "action": "DATA_INSUFFICIENT",
+  "confidence": 0.5,
+  "summary": "[000002.SZ] pre_model_gate: 缺少日K线数据",
+  "evidenceJson": "[{\"source\":\"stock_profile.status\",\"title\":\"股票状态\",\"value\":\"NORMAL\"}]",
+  "risksJson": "[]",
+  "decisionSource": "data_insufficient_gate",
+  "modelCalled": false,
+  "hardRuleOverride": true,
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-18T09:09:25.319Z"
+}

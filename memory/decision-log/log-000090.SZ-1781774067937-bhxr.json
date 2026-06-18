@@ -1,0 +1,16 @@
+{
+  "logId": "log-000090.SZ-1781774067937-bhxr",
+  "taskId": "monthly-review",
+  "skillId": "monthly-hold-review",
+  "symbol": "000090.SZ",
+  "action": "CAUTIOUS_HOLD",
+  "confidence": 0.65,
+  "summary": "[000090.SZ] CAUTIOUS_HOLD（模型建议 HOLD -> 风控覆盖 CAUTIOUS_HOLD）",
+  "evidenceJson": "[{\"source\":\"stock_profile\",\"title\":\"股票名称\",\"value\":\"000090.SZ\",\"asOfDate\":\"2026-06\"},{\"source\":\"stock_profile.status\",\"title\":\"股票状态\",\"value\":\"NORMAL\",\"asOfDate\":\"2026-06\"},{\"source\":\"market_performance\",\"title\":\"250日收益率(%)\",\"value\":28.43,\"asOfDate\":\"2026-06\"},{\"source\":\"market_performance\",\"title\":\"250日最大回撤(%)\",\"value\":0,\"asOfDate\":\"2026-06\"},{\"source\":\"risk_gate\",\"title\":\"存在严重风险\",\"value\":false,\"asOfDate\":\"2026-06\"}]",
+  "risksJson": "[]",
+  "decisionSource": "risk_judge_override",
+  "modelCalled": true,
+  "hardRuleOverride": false,
+  "traceId": "trace-monthly",
+  "createdAt": "2026-06-18T09:14:27.937Z"
+}

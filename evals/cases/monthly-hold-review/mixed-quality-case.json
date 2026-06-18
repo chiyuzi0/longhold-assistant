@@ -1,0 +1,47 @@
+{
+  "case_id": "monthly-hold-review/mixed-quality",
+  "name": "混合数据质量",
+  "description": "30条K线、最近数据14天前、status=NORMAL → quality_level=MEDIUM → risk_judge 输出 CAUTIOUS_HOLD，不可 HOLD。",
+  "task": "对混合数据质量股票 600999.SH 进行月度体检",
+  "portfolio": {
+    "holdings": [{"symbol": "600999.SH", "cost_price": 30.00, "quantity": 1500}]
+  },
+  "fixtures": {
+    "stock_profiles": [{"symbol": "600999.SH", "name": "混合质量测试股", "market": "A_SHARE", "status": "NORMAL"}],
+    "daily_bars": [
+      {"symbol": "600999.SH", "tradeDate": "2026-05-01", "open": 28.0, "high": 28.5, "low": 27.8, "close": 28.2},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-05", "open": 28.2, "high": 28.8, "low": 28.0, "close": 28.5},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-10", "open": 28.5, "high": 29.0, "low": 28.2, "close": 28.8},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-15", "open": 28.8, "high": 29.2, "low": 28.5, "close": 29.0},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-20", "open": 29.0, "high": 29.5, "low": 28.8, "close": 29.2},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-25", "open": 29.2, "high": 29.8, "low": 29.0, "close": 29.5},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-01", "open": 29.5, "high": 30.0, "low": 29.2, "close": 29.8},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-02", "open": 29.8, "high": 30.2, "low": 29.5, "close": 30.0},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-03", "open": 30.0, "high": 30.5, "low": 29.8, "close": 30.2},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-04", "open": 30.2, "high": 30.8, "low": 30.0, "close": 30.5},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-05", "open": 30.5, "high": 31.0, "low": 30.2, "close": 30.8},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-06", "open": 30.8, "high": 31.2, "low": 30.5, "close": 31.0},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-07", "open": 31.0, "high": 31.5, "low": 30.8, "close": 31.2},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-08", "open": 31.2, "high": 31.8, "low": 31.0, "close": 31.5},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-09", "open": 31.5, "high": 32.0, "low": 31.2, "close": 31.8},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-10", "open": 31.8, "high": 32.2, "low": 31.5, "close": 32.0},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-11", "open": 32.0, "high": 32.5, "low": 31.8, "close": 32.2},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-12", "open": 32.2, "high": 32.8, "low": 32.0, "close": 32.5},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-13", "open": 32.5, "high": 33.0, "low": 32.2, "close": 32.8},
+      {"symbol": "600999.SH", "tradeDate": "2026-06-14", "open": 32.8, "high": 33.2, "low": 32.5, "close": 33.0},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-02", "open": 28.0, "high": 28.5, "low": 27.8, "close": 28.2},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-03", "open": 28.2, "high": 28.8, "low": 28.0, "close": 28.5},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-06", "open": 28.5, "high": 29.0, "low": 28.2, "close": 28.8},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-07", "open": 28.8, "high": 29.2, "low": 28.5, "close": 29.0},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-08", "open": 29.0, "high": 29.5, "low": 28.8, "close": 29.2},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-09", "open": 29.2, "high": 29.8, "low": 29.0, "close": 29.5},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-11", "open": 29.5, "high": 30.0, "low": 29.2, "close": 29.8},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-12", "open": 29.8, "high": 30.2, "low": 29.5, "close": 30.0},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-13", "open": 30.0, "high": 30.5, "low": 29.8, "close": 30.2},
+      {"symbol": "600999.SH", "tradeDate": "2026-05-14", "open": 30.2, "high": 30.8, "low": 30.0, "close": 30.5}
+    ]
+  },
+  "expected": {"action": "CAUTIOUS_HOLD"},
+  "forbidden_outputs": ["HOLD"],
+  "required_evidence": []
+}
